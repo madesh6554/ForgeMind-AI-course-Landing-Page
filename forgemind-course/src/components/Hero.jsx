@@ -39,8 +39,8 @@ export default function Hero() {
             maxWidth: 520, margin: '0 auto 28px', lineHeight: 1.7,
             padding: isMobile ? '0 4px' : 0
           }}>
-            Build AI bots that reply, follow up, and close deals —{' '}
-            <b style={{ color: 'var(--t)', fontWeight: 600 }}>24/7, no coding needed.</b>
+            Learn to build WhatsApp bots that handle replies, follow-ups, and support —{' '}
+            <b style={{ color: 'var(--t)', fontWeight: 600 }}>automatically, 24/7.</b>
           </p>
 
           {/* Video */}
