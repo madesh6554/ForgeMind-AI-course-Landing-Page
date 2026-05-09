@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 const faqs = [
   { q: 'Do I need coding experience?', a: 'Not at all. This combo is built for complete beginners. Everything is no-code using n8n. If you can explain your process in simple words, this combo will help you turn it into working automation.' },
-  { q: 'What about the WhatsApp API — is it the real production API?', a: 'The course uses Meta test numbers for learning. Production API setup is not covered in the course, but registered businesses (GST/MSME) needing a production number can contact us at +91 93422 45724.' },
+  { q: 'What about the WhatsApp API — is it the real production API?', a: <>The course uses Meta test numbers for learning. Production API setup is not covered in the course, but registered businesses (GST/MSME) needing a production number can contact us at{' '}<a href="https://wa.me/919342245724" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--wa)', fontWeight: 600, textDecoration: 'none' }}>+91 93422 45724</a>.</> },
   { q: 'Is the course in Tamil or English?', a: 'Tamil with English technical terminology — making it accessible for Tamil speakers while keeping you aligned with industry-standard language.' },
   { q: 'How long will I have access?', a: 'Lifetime access. Once you enroll, all modules, updates, and community resources are yours forever. 100% pre-recorded — watch and rewatch whenever you want.' },
   { q: 'Can I buy the courses separately?', a: 'Yes, but the combo saves you ₹800. Both courses complement each other — n8n gives you the foundation, WhatsApp automation gives you the business application.' },
