@@ -24,12 +24,16 @@ export default function Navbar() {
       <div className="ctr" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <a href="https://forgemind.in" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
           <img src="/forgemind-logo.gif" alt="ForgeMind AI" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
-          <span style={{ fontSize: 17, fontWeight: 800, color: '#fff', letterSpacing: '-.04em' }}>
-            ForgeMind<span style={{ color: 'var(--red)' }}>AI</span>
-          </span>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <span style={{ fontSize: 17, fontWeight: 800, color: '#fff', letterSpacing: '-.04em', lineHeight: 1.2 }}>
+              ForgeMind<span style={{ color: 'var(--red)' }}>AI</span>
+            </span>
+            <div style={{ transform: 'scale(0.82)', transformOrigin: 'left center', marginTop: 2 }}>
+              <MetaBadge size="xs" />
+            </div>
+          </div>
         </a>
         <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 10 : 16 }}>
-          {!isMobile && <MetaBadge size="xs" />}
           <a href="https://wa.me/919342245724?text=Hi!%20I%20want%20to%20enroll%20in%20the%20N8N%20%2B%20WhatsApp%20Combo%20Course%20%E2%82%B94%2C999" target="_blank" rel="noopener noreferrer" className="btn-p" style={{
             padding: isMobile ? '8px 16px' : '10px 24px',
             fontSize: isMobile ? 13 : 14, borderRadius: 8
