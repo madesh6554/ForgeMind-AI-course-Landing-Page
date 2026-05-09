@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react'
 import { SmileIcon } from './Icons'
 
 const MicIcon = () => (
@@ -71,11 +72,14 @@ const reviews = [
   },
 ]
 
+const GAP = 24
+
 function PhoneReview({ review }) {
   return (
-    <div style={{ flex: '0 0 260px', scrollSnapAlign: 'center', transition: 'transform .3s', position: 'relative' }}
-      onMouseEnter={e => e.currentTarget.style.transform='translateY(-6px)'}
-      onMouseLeave={e => e.currentTarget.style.transform=''}
+    <div
+      style={{ flex: '0 0 260px', scrollSnapAlign: 'center', transition: 'transform .3s', position: 'relative' }}
+      onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-6px)'}
+      onMouseLeave={e => e.currentTarget.style.transform = ''}
     >
       <div style={{
         background: '#1a1a1e', borderRadius: 32, padding: 10,
@@ -145,6 +149,36 @@ function PhoneReview({ review }) {
 }
 
 export default function Reviews() {
+  const stripRef = useRef(null)
+  const drag = useRef({ active: false, startX: 0, scrollLeft: 0 })
+
+  /* Scroll to center phone (index 2 of 5) on mount */
+  useEffect(() => {
+    if (stripRef.current) {
+      const ITEM_W = 260 + GAP // 284px per phone
+      const centerIndex = Math.floor(reviews.length / 2) // index 2
+      stripRef.current.scrollLeft = ITEM_W * centerIndex
+    }
+  }, [])
+
+  const onMouseDown = (e) => {
+    drag.current = { active: true, startX: e.pageX - stripRef.current.offsetLeft, scrollLeft: stripRef.current.scrollLeft }
+    stripRef.current.style.cursor = 'grabbing'
+    stripRef.current.style.scrollSnapType = 'none'
+  }
+  const onMouseMove = (e) => {
+    if (!drag.current.active) return
+    e.preventDefault()
+    const x = e.pageX - stripRef.current.offsetLeft
+    stripRef.current.scrollLeft = drag.current.scrollLeft - (x - drag.current.startX) * 1.2
+  }
+  const stopDrag = () => {
+    if (!drag.current.active) return
+    drag.current.active = false
+    stripRef.current.style.cursor = 'grab'
+    stripRef.current.style.scrollSnapType = 'x mandatory'
+  }
+
   return (
     <section className="rv" style={{ borderBottom: '1px solid var(--bdr)', padding: '88px 0' }}>
       <div className="ctr">
@@ -155,26 +189,70 @@ export default function Reviews() {
         </div>
       </div>
 
-      {/* Scroll strip — full viewport width so swipe works */}
-      <div style={{
-        display: 'flex', gap: 24,
-        padding: '8px 24px 24px',
-        overflowX: 'auto',
-        scrollSnapType: 'x mandatory',
-        WebkitOverflowScrolling: 'touch',
-        scrollbarWidth: 'none',
-        msOverflowStyle: 'none',
-        cursor: 'grab',
-      }}>
+      {/* Spotlight carousel — center phone full, adjacent 50% faded, edges hidden */}
+      <div
+        ref={stripRef}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={stopDrag}
+        onMouseLeave={stopDrag}
+        style={{
+          display: 'flex', gap: GAP,
+          /* padding centers first & last phone so they can snap to center */
+          padding: '8px calc(50% - 130px) 32px',
+          overflowX: 'auto',
+          scrollSnapType: 'x mandatory',
+          scrollPaddingInline: 'calc(50% - 130px)',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          cursor: 'grab',
+          userSelect: 'none',
+          marginTop: 40,
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, transparent 15%, black 25%, black 75%, transparent 85%, transparent 100%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, transparent 15%, black 25%, black 75%, transparent 85%, transparent 100%)',
+        }}
+      >
         {reviews.map((r, i) => <PhoneReview key={i} review={r} />)}
       </div>
 
       <div className="ctr">
-        <div style={{ textAlign: 'center', marginTop: 8, fontSize: 13, color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-          Swipe to see more reviews
-          <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ animation: 'swipeHint 2s ease-in-out infinite' }}>
-            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-          </svg>
+        <div style={{ textAlign: 'center', marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
+          {/* Left arrow */}
+          <button
+            onClick={() => { stripRef.current.scrollBy({ left: -284, behavior: 'smooth' }) }}
+            style={{
+              width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--bdr2)',
+              background: 'var(--bg3)', color: 'var(--t2)', cursor: 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'border-color .2s, color .2s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor='var(--red2)'; e.currentTarget.style.color='var(--red2)' }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor='var(--bdr2)'; e.currentTarget.style.color='var(--t2)' }}
+          >
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/>
+            </svg>
+          </button>
+
+          <span style={{ fontSize: 13, color: 'var(--t3)' }}>Drag or click arrows to scroll</span>
+
+          {/* Right arrow */}
+          <button
+            onClick={() => { stripRef.current.scrollBy({ left: 284, behavior: 'smooth' }) }}
+            style={{
+              width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--bdr2)',
+              background: 'var(--bg3)', color: 'var(--t2)', cursor: 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'border-color .2s, color .2s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor='var(--red2)'; e.currentTarget.style.color='var(--red2)' }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor='var(--bdr2)'; e.currentTarget.style.color='var(--red2)' }}
+          >
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
         </div>
       </div>
     </section>

@@ -13,30 +13,57 @@ export default function Hero() {
   const isMobile = useIsMobile()
 
   return (
-    <section style={{ padding: isMobile ? '36px 0 52px' : '56px 0 80px', position: 'relative' }}>
+    <section id="hero-section" style={{ padding: isMobile ? '40px 0 56px' : '64px 0 88px', position: 'relative', overflow: 'hidden' }}>
+
+      {/* Dot grid background */}
       <div style={{
-        position: 'absolute', top: -80, left: '50%', transform: 'translateX(-50%)',
-        width: 700, height: 500,
-        background: 'radial-gradient(ellipse,var(--rg) 0%,transparent 70%)',
-        pointerEvents: 'none'
-      }}/>
-      <div className="ctr">
+        position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0,
+        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px)',
+        backgroundSize: '28px 28px',
+        maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)',
+        WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)',
+      }} />
+
+      {/* Red glow */}
+      <div style={{
+        position: 'absolute', top: -120, left: '50%', transform: 'translateX(-50%)',
+        width: 800, height: 600,
+        background: 'radial-gradient(ellipse,rgba(229,9,20,0.13) 0%,transparent 68%)',
+        pointerEvents: 'none', zIndex: 0,
+      }} />
+
+      <div className="ctr" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ position: 'relative', textAlign: 'center' }}>
 
-          <h1 className="fu" style={{
-            fontSize: isMobile ? 'clamp(26px,7vw,36px)' : 'clamp(30px,5vw,54px)',
-            fontWeight: 700, lineHeight: 1.12,
-            letterSpacing: isMobile ? -1 : -1.5,
-            marginBottom: 16, maxWidth: 800, marginLeft: 'auto', marginRight: 'auto'
+          {/* Course badge */}
+          <div className="fu" style={{ display: 'flex', justifyContent: 'center', marginBottom: 18 }}>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              padding: '5px 14px', borderRadius: 100,
+              background: 'rgba(229,9,20,0.1)',
+              border: '1px solid rgba(229,9,20,0.25)',
+              fontSize: 11, fontWeight: 700, color: 'var(--red2)',
+              letterSpacing: '0.06em', textTransform: 'uppercase'
+            }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--red)', display: 'inline-block', boxShadow: '0 0 6px var(--red)' }} />
+              Combo Course · Tamil · Live Batches
+            </span>
+          </div>
+
+          <h1 className="fu fu1" style={{
+            fontSize: isMobile ? 'clamp(28px,7vw,38px)' : 'clamp(36px,4.5vw,58px)',
+            fontWeight: 800, lineHeight: 1.1,
+            letterSpacing: isMobile ? -1 : -2,
+            marginBottom: 18, maxWidth: 820, marginLeft: 'auto', marginRight: 'auto'
           }}>
             Automate your Business<br />
             using <em style={{ fontStyle: 'normal', color: 'var(--wa)' }}>WhatsApp</em>{' '}
-            and <strong style={{ color: 'var(--red2)', fontWeight: 700 }}>n8n</strong>
+            and <strong style={{ color: 'var(--red2)', fontWeight: 800 }}>n8n</strong>
           </h1>
 
-          <p className="fu fu1" style={{
+          <p className="fu fu2" style={{
             fontSize: isMobile ? 15 : 17, color: 'var(--t2)',
-            maxWidth: 520, margin: '0 auto 28px', lineHeight: 1.7,
+            maxWidth: 500, margin: '0 auto 32px', lineHeight: 1.75,
             padding: isMobile ? '0 4px' : 0
           }}>
             Learn to build WhatsApp bots that handle replies, follow-ups, and support —{' '}
@@ -44,7 +71,7 @@ export default function Hero() {
           </p>
 
           {/* Video */}
-          <div className="fu fu2" style={{
+          <div className="fu fu3" style={{
             maxWidth: 760, margin: '0 auto 32px', position: 'relative',
             paddingBottom: isMobile ? '56.25%' : '42.75%',
             background: 'var(--bg3)', borderRadius: isMobile ? 10 : 14,
@@ -104,7 +131,7 @@ export default function Hero() {
           <div className="fu fu3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, flexWrap: 'wrap' }}>
             {[
               { label: 'COMBO COURSE', icon: null, style: { background: 'var(--red)', color: '#fff' } },
-              { label: '4.7 · 75+ Learners', icon: <StarIcon size={11} />, style: { background: 'transparent', border: '1px solid var(--bdr2)', color: 'var(--t2)' } },
+              { label: '4.7 · 350+ Learners', icon: <StarIcon size={11} />, style: { background: 'transparent', border: '1px solid var(--bdr2)', color: 'var(--t2)' } },
               { label: 'Tamil', icon: <GlobeIcon size={11} />, style: { background: 'transparent', border: '1px solid var(--bdr2)', color: 'var(--t2)' } },
             ].map(tag => (
               <span key={tag.label} style={{ padding: '5px 14px', borderRadius: 100, fontSize: 12, fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 4, ...tag.style }}>

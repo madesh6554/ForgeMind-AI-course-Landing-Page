@@ -29,14 +29,24 @@ const items = [
 function PhoneMockup({ data, isMobile }) {
   const [visibleChats, setVisibleChats] = useState([])
   const [showTyping, setShowTyping] = useState(false)
+  const [chatOpacity, setChatOpacity] = useState(1)
 
   useEffect(() => {
-    setVisibleChats([])
-    setShowTyping(false)
-    data.chats.forEach((chat, i) => {
-      setTimeout(() => setVisibleChats(prev => [...prev, chat]), i * 300)
-    })
-    setTimeout(() => setShowTyping(true), data.chats.length * 300)
+    const timers = []
+    setChatOpacity(0)
+    const reset = setTimeout(() => {
+      setVisibleChats([])
+      setShowTyping(false)
+      setChatOpacity(1)
+      data.chats.forEach((chat, i) => {
+        timers.push(setTimeout(() => setVisibleChats(prev => [...prev, chat]), i * 300))
+      })
+      timers.push(setTimeout(() => setShowTyping(true), data.chats.length * 300))
+    }, 220)
+    return () => {
+      clearTimeout(reset)
+      timers.forEach(clearTimeout)
+    }
   }, [data])
 
   const phoneMaxWidth = isMobile ? 200 : 240
@@ -70,7 +80,8 @@ function PhoneMockup({ data, isMobile }) {
           </div>
           <div style={{
             background: '#0b141a', padding: '10px 8px', flex: 1,
-            display: 'flex', flexDirection: 'column', gap: 6, justifyContent: 'flex-end'
+            display: 'flex', flexDirection: 'column', gap: 6, justifyContent: 'flex-end',
+            opacity: chatOpacity, transition: 'opacity 0.2s ease'
           }}>
             {visibleChats.map((b, i) => (
               <div key={i} style={{
@@ -158,7 +169,7 @@ export default function WhatsAppCarousel({ sectionRef }) {
           display: 'grid',
           gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
           gap: isMobile ? 24 : 60,
-          alignItems: 'center',
+          alignItems: 'flex-start',
           marginTop: 40
         }}>
           <PhoneMockup data={carouselData[activeIdx]} isMobile={isMobile} />
@@ -171,8 +182,8 @@ export default function WhatsAppCarousel({ sectionRef }) {
                   key={i}
                   onClick={() => handleSelect(i)}
                   style={{
-                    padding: '16px 20px',
-                    borderRadius: 12, cursor: 'pointer', transition: 'all .3s', marginBottom: 6,
+                    padding: '10px 16px',
+                    borderRadius: 12, cursor: 'pointer', transition: 'all .3s', marginBottom: 2,
                     position: 'relative',
                     border: activeIdx === i ? '1px solid var(--wa)' : '1px solid transparent',
                     background: activeIdx === i ? 'var(--bg3)' : 'transparent',

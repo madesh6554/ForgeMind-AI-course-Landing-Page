@@ -1,3 +1,6 @@
+import { useRef } from 'react'
+import { useIsMobile } from '../hooks/useIsMobile'
+
 const VideoIcon = () => <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
 const ChatIcon = () => <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
 const GridIcon = () => <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
@@ -14,33 +17,67 @@ const cards = [
   { icon: <UsersIcon />, title: 'Lifetime Access', desc: 'Learn at your own pace with forever access to all modules and future updates. Revisit any lesson, anytime.', borderColor: 'var(--bdr)', iconStyle: { borderColor: 'var(--rgs)', color: 'var(--red2)' } },
 ]
 
+/* Double for seamless loop — translateX(-50%) = exactly one copy */
+const track = [...cards, ...cards]
+const CARD_W = 300
+const GAP = 20
+
 function GetCard({ card }) {
   return (
     <div style={{
-      flex: '0 0 260px', padding: '28px 24px', background: 'var(--bg3)',
-      border: `1px solid ${card.borderColor}`, borderRadius: 12, cursor: 'default',
-      transition: '.2s'
+      padding: '28px 24px', background: 'var(--bg3)',
+      border: `1px solid ${card.borderColor}`, borderRadius: 14,
+      cursor: 'default', transition: 'border-color .22s ease, box-shadow .22s ease',
+      height: '100%', boxSizing: 'border-box',
     }}
-      onMouseEnter={e => { e.currentTarget.style.borderColor='var(--red2)'; e.currentTarget.style.transform='translateY(-4px)'; e.currentTarget.style.boxShadow='0 8px 30px var(--rg)' }}
-      onMouseLeave={e => { e.currentTarget.style.borderColor=card.borderColor; e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow='' }}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor = 'var(--red2)'
+        e.currentTarget.style.boxShadow = '0 8px 30px var(--rg)'
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor = card.borderColor
+        e.currentTarget.style.boxShadow = ''
+      }}
     >
       <div style={{
-        width: 44, height: 44, borderRadius: 12, display: 'flex', alignItems: 'center',
-        justifyContent: 'center', marginBottom: 18, fontSize: 20,
-        border: `1px solid ${card.iconStyle.borderColor}`, color: card.iconStyle.color
+        width: 44, height: 44, borderRadius: 12,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        marginBottom: 16, border: `1px solid ${card.iconStyle.borderColor}`,
+        color: card.iconStyle.color,
       }}>
         {card.icon}
       </div>
-      <h4 style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{card.title}</h4>
-      <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.6 }}>{card.desc}</p>
+      <h4 style={{ fontSize: 15, fontWeight: 600, marginBottom: 8 }}>{card.title}</h4>
+      <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.65 }}>{card.desc}</p>
     </div>
   )
 }
 
 export default function WhatYouGet() {
-  const doubled = [...cards, ...cards]
+  const isMobile = useIsMobile()
+  const trackRef = useRef(null)
+
+  const pause  = () => { if (trackRef.current) trackRef.current.style.animationPlayState = 'paused' }
+  const resume = () => { if (trackRef.current) trackRef.current.style.animationPlayState = 'running' }
+
   return (
-    <section className="rv" style={{ borderTop: '1px solid var(--bdr)', borderBottom: '1px solid var(--bdr)', background: 'var(--bg2)', overflow: 'hidden', padding: '88px 0' }}>
+    <section className="rv" style={{
+      background: 'var(--bg2)', padding: isMobile ? '52px 0' : '88px 0',
+      position: 'relative',
+    }}>
+      {/* Top border line — fades at edges */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0, height: 1,
+        background: 'linear-gradient(to right, transparent 0%, transparent 12%, rgba(255,255,255,0.07) 16%, rgba(255,255,255,0.07) 84%, transparent 88%, transparent 100%)',
+        pointerEvents: 'none',
+      }} />
+      {/* Bottom border line */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0, height: 1,
+        background: 'linear-gradient(to right, transparent 0%, transparent 12%, rgba(255,255,255,0.07) 16%, rgba(255,255,255,0.07) 84%, transparent 88%, transparent 100%)',
+        pointerEvents: 'none',
+      }} />
+
       <div className="ctr">
         <div className="shc">
           <div className="slbl">What You'll Get Inside</div>
@@ -48,22 +85,32 @@ export default function WhatYouGet() {
         </div>
       </div>
 
-      {/* Marquee — full width */}
-      <div style={{ position: 'relative', paddingBottom: 48 }}>
-        <div style={{
-          position: 'absolute', top: 0, bottom: 48, left: 0, width: 120,
-          background: 'linear-gradient(90deg,var(--bg2),transparent)', zIndex: 2, pointerEvents: 'none'
-        }}/>
-        <div style={{
-          position: 'absolute', top: 0, bottom: 48, right: 0, width: 120,
-          background: 'linear-gradient(270deg,var(--bg2),transparent)', zIndex: 2, pointerEvents: 'none'
-        }}/>
+      {/* Marquee — maskImage fades edges at pixel level, no color-matching needed */}
+      <div
+        style={{
+          marginTop: 40,
+          overflow: 'hidden',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, transparent 15%, black 25%, black 75%, transparent 85%, transparent 100%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, transparent 15%, black 25%, black 75%, transparent 85%, transparent 100%)',
+        }}
+        onMouseEnter={pause}
+        onMouseLeave={resume}
+      >
         <div
-          style={{ display: 'flex', gap: 16, width: 'max-content', animation: 'marqueeScroll 22s linear infinite', padding: '0 16px' }}
-          onMouseEnter={e => e.currentTarget.style.animationPlayState='paused'}
-          onMouseLeave={e => e.currentTarget.style.animationPlayState='running'}
+          ref={trackRef}
+          style={{
+            display: 'flex',
+            alignItems: 'stretch',
+            width: 'max-content',
+            animation: 'marqueeScroll 32s linear infinite',
+            willChange: 'transform',
+          }}
         >
-          {doubled.map((card, i) => <GetCard key={i} card={card} />)}
+          {track.map((card, i) => (
+            <div key={i} style={{ paddingRight: GAP, flexShrink: 0, width: CARD_W }}>
+              <GetCard card={card} />
+            </div>
+          ))}
         </div>
       </div>
     </section>
