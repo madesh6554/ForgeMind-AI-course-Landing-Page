@@ -8,7 +8,6 @@ import WhatsAppCarousel from './components/WhatsAppCarousel'
 import About from './components/About'
 import BuildWithUs from './components/BuildWithUs'
 import WhatYouGet from './components/WhatYouGet'
-import KeyTakeaways from './components/KeyTakeaways'
 import Modules from './components/Modules'
 import Certificate from './components/Certificate'
 import WhoIsItFor from './components/WhoIsItFor'
@@ -41,7 +40,6 @@ export default function App() {
       <About />
       <BuildWithUs />
       <WhatYouGet />
-      <KeyTakeaways />
       <Modules />
       <Certificate />
       <WhoIsItFor />
