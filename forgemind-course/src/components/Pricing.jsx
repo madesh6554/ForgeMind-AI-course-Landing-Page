@@ -37,10 +37,11 @@ export default function Pricing() {
           </div>
           <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 22 }}>Use code FORGE26 for extra ₹150 off</div>
 
-          <button style={{
+          <a href="https://wa.me/919342245724?text=Hi!%20I%20want%20to%20buy%20the%20N8N%20%2B%20WhatsApp%20Combo%20Course%20%E2%82%B94%2C999" target="_blank" rel="noopener noreferrer" style={{
             width: '100%', padding: isMobile ? 14 : 16, background: 'var(--red)', color: '#fff', border: 'none',
             borderRadius: 12, fontFamily: 'inherit', fontSize: isMobile ? 15 : 17, fontWeight: 600,
-            cursor: 'pointer', transition: '.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8
+            cursor: 'pointer', transition: '.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+            textDecoration: 'none', boxSizing: 'border-box'
           }}
             onMouseEnter={e => { e.currentTarget.style.background='var(--red2)'; e.currentTarget.style.transform='translateY(-1px)' }}
             onMouseLeave={e => { e.currentTarget.style.background='var(--red)'; e.currentTarget.style.transform='' }}
@@ -51,7 +52,7 @@ export default function Pricing() {
               <polyline points="15 3 21 3 21 9"/>
               <line x1="10" y1="14" x2="21" y2="3"/>
             </svg>
-          </button>
+          </a>
 
           <div style={{ marginTop: 20, textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 12 }}>
             {priceDets.map((d, i) => (
@@ -80,8 +81,8 @@ export default function Pricing() {
             gap: 12
           }}>
             {[
-              { name: 'n8n Starter Course', sub: '10 modules · Complete automation foundation', price: '₹1,799', old: '₹2,999', color: 'var(--red)', btn: 'Buy n8n Course →' },
-              { name: 'WhatsApp AI Automation', sub: '8 modules · Production-ready WhatsApp bots', price: '₹1,499', old: '₹1,999', color: 'var(--wa)', btn: 'Buy WhatsApp Course →' },
+              { name: 'n8n Starter Course', sub: '10 modules · Complete automation foundation', price: '₹1,799', old: '₹2,999', color: 'var(--red)', btn: 'Buy n8n Course →', wa: 'https://wa.me/919342245724?text=Hi!%20I%20want%20to%20buy%20the%20N8N%20Starter%20Course%20%E2%82%B91%2C799' },
+              { name: 'WhatsApp AI Automation', sub: '8 modules · Production-ready WhatsApp bots', price: '₹1,499', old: '₹1,999', color: 'var(--wa)', btn: 'Buy WhatsApp Course →', wa: 'https://wa.me/919342245724?text=Hi!%20I%20want%20to%20buy%20the%20WhatsApp%20AI%20Automation%20Course%20%E2%82%B91%2C499' },
             ].map((c, i) => (
               <div key={i} style={{
                 padding: '16px 18px', background: 'var(--bg3)',
@@ -99,7 +100,7 @@ export default function Pricing() {
                   <span style={{ fontSize: 20, fontWeight: 700, fontFamily: "'JetBrains Mono',monospace" }}>{c.price}</span>
                   <span style={{ fontSize: 12, color: 'var(--t3)', textDecoration: 'line-through' }}>{c.old}</span>
                 </div>
-                <a href="#" style={{
+                <a href={c.wa} target="_blank" rel="noopener noreferrer" style={{
                   width: '100%', padding: '8px', background: 'transparent', color: 'var(--t2)',
                   border: '1px solid var(--bdr)', borderRadius: 8, fontFamily: 'inherit',
                   fontSize: 12, fontWeight: 600, cursor: 'pointer', textDecoration: 'none',

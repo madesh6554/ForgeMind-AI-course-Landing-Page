@@ -46,7 +46,7 @@ export default function Navbar() {
               <CheckIcon /> Verified Meta Tech Provider
             </div>
           )}
-          <a href="#pricing" className="btn-p" style={{
+          <a href="https://wa.me/919342245724?text=Hi!%20I%20want%20to%20enroll%20in%20the%20N8N%20%2B%20WhatsApp%20Combo%20Course%20%E2%82%B94%2C999" target="_blank" rel="noopener noreferrer" className="btn-p" style={{
             padding: isMobile ? '8px 16px' : '10px 24px',
             fontSize: isMobile ? 13 : 14, borderRadius: 8
           }}>

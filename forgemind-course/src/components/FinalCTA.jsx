@@ -12,7 +12,7 @@ export default function FinalCTA() {
         <p style={{ fontSize: 16, color: 'var(--t2)', marginBottom: 32 }}>
           Join 75+ students who are automating their businesses with AI.
         </p>
-        <a href="#pricing" className="btn-p" style={{ fontSize: 17, padding: '16px 44px' }}>
+        <a href="https://wa.me/919342245724?text=Hi!%20I%20want%20to%20enroll%20in%20the%20N8N%20%2B%20WhatsApp%20Combo%20Course%20%E2%82%B94%2C999" target="_blank" rel="noopener noreferrer" className="btn-p" style={{ fontSize: 17, padding: '16px 44px' }}>
           Enroll Now — ₹4,999 →
         </a>
       </div>
