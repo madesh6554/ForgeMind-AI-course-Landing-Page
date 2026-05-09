@@ -146,17 +146,31 @@ function PhoneReview({ review }) {
 
 export default function Reviews() {
   return (
-    <section className="rv" style={{ borderBottom: '1px solid var(--bdr)', overflow: 'hidden', padding: '88px 0' }}>
+    <section className="rv" style={{ borderBottom: '1px solid var(--bdr)', padding: '88px 0' }}>
       <div className="ctr">
         <div className="shc">
           <div className="slbl">Student Reviews</div>
           <div className="stl">Real feedback. Straight from WhatsApp.</div>
           <div className="sdsc">Unfiltered reviews from students who completed the course — no edits, no filters.</div>
         </div>
-        <div style={{ display: 'flex', gap: 24, padding: '0 0 20px', overflowX: 'auto', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
-          {reviews.map((r, i) => <PhoneReview key={i} review={r} />)}
-        </div>
-        <div style={{ textAlign: 'center', marginTop: 24, fontSize: 13, color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+      </div>
+
+      {/* Scroll strip — full viewport width so swipe works */}
+      <div style={{
+        display: 'flex', gap: 24,
+        padding: '8px 24px 24px',
+        overflowX: 'auto',
+        scrollSnapType: 'x mandatory',
+        WebkitOverflowScrolling: 'touch',
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none',
+        cursor: 'grab',
+      }}>
+        {reviews.map((r, i) => <PhoneReview key={i} review={r} />)}
+      </div>
+
+      <div className="ctr">
+        <div style={{ textAlign: 'center', marginTop: 8, fontSize: 13, color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
           Swipe to see more reviews
           <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ animation: 'swipeHint 2s ease-in-out infinite' }}>
             <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>

@@ -42,6 +42,7 @@ body {
   -ms-overflow-style: none;
 }
 body::-webkit-scrollbar { display: none; }
+*::-webkit-scrollbar { display: none; }
 
 #root { width: 100%; }
 
