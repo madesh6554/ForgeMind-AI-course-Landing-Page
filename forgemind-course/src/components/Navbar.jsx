@@ -1,16 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useIsMobile } from '../hooks/useIsMobile'
-
-const BoltIcon = () => (
-  <svg width="16" height="16" fill="white" viewBox="0 0 24 24">
-    <path d="M13 3L4 14h7l-2 7 9-11h-7l2-7z"/>
-  </svg>
-)
-const CheckIcon = () => (
-  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-  </svg>
-)
+import MetaBadge from './MetaBadge'
 
 export default function Navbar() {
   const navRef = useRef(null)
@@ -32,20 +22,14 @@ export default function Navbar() {
       borderBottom: '1px solid transparent', transition: 'border-color .2s'
     }}>
       <div className="ctr" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <a href="https://forgemind.in" className="logo">
-          <div className="logo-i"><BoltIcon /></div>
-          ForgeMind<span>AI</span>
+        <a href="https://forgemind.in" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
+          <img src="/forgemind-logo.gif" alt="ForgeMind AI" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
+          <span style={{ fontSize: 17, fontWeight: 800, color: '#fff', letterSpacing: '-.04em' }}>
+            ForgeMind<span style={{ color: 'var(--red)' }}>AI</span>
+          </span>
         </a>
         <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 10 : 16 }}>
-          {!isMobile && (
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 6, padding: '4px 12px',
-              background: 'var(--grng)', border: '1px solid rgba(34,197,94,.2)',
-              borderRadius: 100, fontSize: 11, color: 'var(--grn)', fontWeight: 500
-            }}>
-              <CheckIcon /> Verified Meta Tech Provider
-            </div>
-          )}
+          {!isMobile && <MetaBadge size="xs" />}
           <a href="https://wa.me/919342245724?text=Hi!%20I%20want%20to%20enroll%20in%20the%20N8N%20%2B%20WhatsApp%20Combo%20Course%20%E2%82%B94%2C999" target="_blank" rel="noopener noreferrer" className="btn-p" style={{
             padding: isMobile ? '8px 16px' : '10px 24px',
             fontSize: isMobile ? 13 : 14, borderRadius: 8

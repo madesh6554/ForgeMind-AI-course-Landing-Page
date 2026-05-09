@@ -1,4 +1,6 @@
 .playwright-mcp/
 *.png
+!forgemind-course/public/**/*.png
+!forgemind-course/src/assets/**/*.png
 forgemind-course.html
 forgemind-hero.png

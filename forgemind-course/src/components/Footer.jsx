@@ -1,15 +1,5 @@
 import { useIsMobile } from '../hooks/useIsMobile'
-
-const BoltIcon = () => (
-  <svg width="16" height="16" fill="white" viewBox="0 0 24 24">
-    <path d="M13 3L4 14h7l-2 7 9-11h-7l2-7z"/>
-  </svg>
-)
-const CheckIcon = () => (
-  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-  </svg>
-)
+import MetaBadge from './MetaBadge'
 
 export default function Footer() {
   const isMobile = useIsMobile()
@@ -24,19 +14,17 @@ export default function Footer() {
           flexDirection: isMobile ? 'column' : 'row'
         }}>
           <div>
-            <a href="https://forgemind.in" className="logo">
-              <div className="logo-i"><BoltIcon /></div>
-              ForgeMind<span>AI</span>
+            <a href="https://forgemind.in" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
+              <img src="/forgemind-logo.gif" alt="ForgeMind AI" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
+              <span style={{ fontSize: 17, fontWeight: 800, color: '#fff', letterSpacing: '-.04em' }}>
+                ForgeMind<span style={{ color: 'var(--red)' }}>AI</span>
+              </span>
             </a>
             <p style={{ fontSize: 14, color: 'var(--t2)', marginTop: 12, maxWidth: 280, lineHeight: 1.6 }}>
               Meet customers where they are — on WhatsApp. Intelligent automation for modern businesses.
             </p>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8, padding: '8px 16px',
-              background: 'var(--grng)', border: '1px solid rgba(34,197,94,.15)',
-              borderRadius: 100, fontSize: 12, color: 'var(--grn)', fontWeight: 500, marginTop: 16
-            }}>
-              <CheckIcon /> Verified Meta Tech Provider ✓
+            <div style={{ marginTop: 14 }}>
+              <MetaBadge size="sm" />
             </div>
           </div>
           <div>
