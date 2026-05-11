@@ -50,7 +50,7 @@ export default function About() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 16, marginBottom: 28 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 16 }}>
           {courses.map(c => (
             <div key={c.num} style={{
               padding: isMobile ? '24px 20px' : '32px 28px',
@@ -83,8 +83,9 @@ export default function About() {
 
               {/* Divider + takeaways */}
               <div style={{ borderTop: '1px solid var(--bdr)', paddingTop: 16 }}>
-                <div style={{ fontSize: 11, fontWeight: 600, color: c.color, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 10, fontFamily: "'JetBrains Mono',monospace" }}>
-                  Walk away with
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: c.color, flexShrink: 0 }}/>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--t)' }}>{c.num === '1' ? 'From n8n Starter' : 'From WhatsApp Automation'}</div>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {c.takeaways.map((item, i) => (
@@ -98,40 +99,6 @@ export default function About() {
             </div>
           ))}
         </div>
-        {/* Key Takeaways — 2-column bordered card */}
-        <div style={{ border: '1px solid var(--bdr)', borderRadius: 14, overflow: 'hidden', maxWidth: 760, margin: '0 auto' }}>
-          <div style={{ display: isMobile ? 'flex' : 'grid', flexDirection: 'column', gridTemplateColumns: '1fr 1fr', background: 'var(--bg3)' }}>
-            {/* n8n column */}
-            <div style={{ padding: isMobile ? '24px 20px' : '32px', borderRight: isMobile ? 'none' : '1px solid var(--bdr)', borderBottom: isMobile ? '1px solid var(--bdr)' : 'none' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 18 }}>
-                <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--red)', flexShrink: 0 }}/>
-                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--t)' }}>From n8n Starter</div>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {courses[0].takeaways.map((item, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 13, color: 'var(--t2)' }}>
-                    <span style={{ color: 'var(--red)', flexShrink: 0, fontWeight: 700, marginTop: 1 }}>→</span>{item}
-                  </div>
-                ))}
-              </div>
-            </div>
-            {/* WhatsApp column */}
-            <div style={{ padding: isMobile ? '24px 20px' : '32px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 18 }}>
-                <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--wa)', flexShrink: 0 }}/>
-                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--t)' }}>From WhatsApp Automation</div>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {courses[1].takeaways.map((item, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 13, color: 'var(--t2)' }}>
-                    <span style={{ color: 'var(--wa)', flexShrink: 0, fontWeight: 700, marginTop: 1 }}>→</span>{item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
   )
