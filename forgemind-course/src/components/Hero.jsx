@@ -66,7 +66,7 @@ export default function Hero() {
             maxWidth: 500, margin: '0 auto 32px', lineHeight: 1.75,
             padding: isMobile ? '0 4px' : 0
           }}>
-            Learn to build WhatsApp bots that handle replies, follow-ups, and support —{' '}
+            Learn to build WhatsApp bots that handle replies, follow-ups, and support -{' '}
             <b style={{ color: 'var(--t)', fontWeight: 600 }}>automatically, 24/7.</b>
           </p>
 
