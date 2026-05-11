@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useIsMobile } from '../hooks/useIsMobile'
 import { PaperclipIcon, ClockIcon } from './Icons'
 
 const part1 = [
-  { week: 'Part 1 – Week 1', title: 'Unit 0: Course Introduction — What You\'ll Be Able to Build', attach: 1, time: '4m 26s', items: ['Welcome to the n8n Starter Course: What to Expect and How This Will Transform Your Business'], icon: <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> },
-  { week: 'Part 1 – Week 2', title: 'Unit 1: n8n Fundamentals — Setting Up Your Automation Engine', attach: 11, time: '57m 11s', items: ['What is n8n? How Businesses Use It to Eliminate Repetitive Work', 'Introduction to n8n and No-Code Automation', 'Key Concepts in Automation Every Business Owner Should Know', 'Installation guide for MacOS + Cloud hosting on Hostinger', 'Installation guide for Windows + Guide for non-cloud hosting', 'n8n Fundamentals: A Deep Dive into Trigger Nodes', 'n8n Self-Hosted AI Starter Kit - Local Docker Installation Guide', 'Common Setup Issues & Quick Fixes', 'The Heart of the Workflow: n8n Data Flow & Transformation', 'Node Reference Sheet — Your Go-To Cheat Sheet', 'Quiz 1'], icon: <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> },
+  { week: 'Part 1 – Week 1', title: 'Unit 0: Course Introduction — What You\'ll Be Able to Build', attach: 1, time: '4m 26s', image: '/course-images/Week1.png', items: ['Welcome to the n8n Starter Course: What to Expect and How This Will Transform Your Business'], icon: <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> },
+  { week: 'Part 1 – Week 2', title: 'Unit 1: n8n Fundamentals — Setting Up Your Automation Engine', attach: 11, time: '57m 11s', image: '/course-images/Week2.png', items: ['What is n8n? How Businesses Use It to Eliminate Repetitive Work', 'Introduction to n8n and No-Code Automation', 'Key Concepts in Automation Every Business Owner Should Know', 'Installation guide for MacOS + Cloud hosting on Hostinger', 'Installation guide for Windows + Guide for non-cloud hosting', 'n8n Fundamentals: A Deep Dive into Trigger Nodes', 'n8n Self-Hosted AI Starter Kit - Local Docker Installation Guide', 'Common Setup Issues & Quick Fixes', 'The Heart of the Workflow: n8n Data Flow & Transformation', 'Node Reference Sheet — Your Go-To Cheat Sheet', 'Quiz 1'], icon: <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> },
   { week: 'Part 1 – Week 3', title: 'Unit 2: Connecting Your Business Tools — Mastering HTTP Node and Webhooks', attach: 7, time: '43m 22s', items: ['Connect to Anything: Intro to the n8n HTTP Node', 'More into HTTP: Webhooks, Responses & JSON Basics', 'HTTP Basics and JSON for Beginners', 'From Docs to Data: A Hands-On HTTP GET Request', 'Your First n8n Webhook: A Practical Introduction', 'Sending Data with n8n: The HTTP POST Request', 'Quiz 2'], icon: <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> },
   { week: 'Part 1 – Week 4', title: 'Unit 3: API Interactions and Authentication — Securely Connecting Your Services', attach: 7, time: '42m 35s', items: ['The Automation Mindset: Thinking in APIs', 'API Basics: Understanding the Internet\'s Language', 'Fetching Live Data: Using an API Key in n8n', 'Beyond the API Key: Bearer Tokens & OAuth2 Explained', 'Google Sheets & n8n: The Complete OAuth2 Setup Guide', 'Unlocking Full API Power: HTTP Request vs. Native Nodes', 'Quiz 3'], icon: <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> },
   { week: 'Part 1 – Week 5', title: 'Unit 4: Adding AI to Your Business Workflows — Smarter Automations with n8n', attach: 10, time: '1h 56m', items: ['Intro to Generative AI: Your First Steps with n8n\'s AI Nodes', 'Unlocking Superpowers: Advanced AI Nodes in n8n', 'Bonus – Unlocking Google Gemini in n8n', 'The Art of the Prompt: Models, Tokens, and AI Communication', 'Beyond the Prompt: Building an AI Agent with Tools & Memory', 'The n8n AI Toolkit Part 1: Agents, Chains & Specialized Nodes', 'Persona Generation Workflow (n8n)', 'The n8n AI Toolkit Part 2: Classification, Sentiment & Data Extraction', 'Customer Query Classifier (n8n)', 'Quiz 4'], icon: <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33"/></svg> },
@@ -26,8 +27,50 @@ const part2 = [
   { week: 'Bonus – New', title: 'Behind the Build — Watch Us Create 3 Real Bots from Scratch', attach: 3, time: 'Coming soon', isBonus: true, items: ['Lead Scraper — Complete build process from zero to a working lead generation bot', 'AI Expense Tracker — Build a WhatsApp bot that logs, categorizes & reports expenses', 'Hospital Appointment Booking — Full walkthrough of building a booking system on WhatsApp'], icon: <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> },
 ]
 
+function Lightbox({ src, onClose }) {
+  return createPortal(
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 9999,
+        background: 'rgba(0,0,0,.6)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: 24
+      }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{
+          background: '#1a1a22', borderRadius: 12,
+          border: '1px solid rgba(255,255,255,.1)',
+          boxShadow: '0 8px 40px rgba(0,0,0,.7)',
+          overflow: 'hidden', position: 'relative',
+          maxWidth: 'min(480px, 90vw)'
+        }}
+      >
+        <button
+          onClick={onClose}
+          style={{
+            position: 'absolute', top: 8, right: 8, zIndex: 1,
+            background: 'rgba(0,0,0,.5)', border: 'none', borderRadius: '50%',
+            width: 28, height: 28, color: '#fff', fontSize: 14,
+            cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            lineHeight: 1
+          }}
+        >✕</button>
+        <img
+          src={src}
+          style={{ display: 'block', width: '100%', height: 'auto', maxHeight: '60vh', objectFit: 'contain' }}
+        />
+      </div>
+    </div>,
+    document.body
+  )
+}
+
 function ModuleItem({ mod, isWa, isMobile }) {
   const [open, setOpen] = useState(false)
+  const [lightboxSrc, setLightboxSrc] = useState(null)
   const accentColor = mod.isBonus ? 'var(--yel)' : (isWa ? 'var(--wa)' : 'var(--red2)')
   const dotLeft = isMobile ? 0 : 0
 
@@ -95,9 +138,29 @@ function ModuleItem({ mod, isWa, isMobile }) {
                 </li>
               ))}
             </ul>
+            {mod.image && (
+              <div style={{ paddingTop: 14, display: 'flex', gap: 12 }}>
+                <div>
+                  <img
+                    src={mod.image}
+                    alt={mod.week}
+                    onClick={() => setLightboxSrc(mod.image)}
+                    style={{
+                      width: 110, height: 72, objectFit: 'cover', borderRadius: 8,
+                      cursor: 'zoom-in', border: '1px solid var(--bdr)', display: 'block',
+                      transition: 'border-color .2s, transform .2s'
+                    }}
+                    onMouseEnter={e => { e.target.style.borderColor = 'var(--red2)'; e.target.style.transform = 'scale(1.04)' }}
+                    onMouseLeave={e => { e.target.style.borderColor = 'var(--bdr)'; e.target.style.transform = 'scale(1)' }}
+                  />
+                  <span style={{ fontSize: 10, color: 'var(--t3)', display: 'block', textAlign: 'center', marginTop: 4 }}>Click to enlarge</span>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
+      {lightboxSrc && <Lightbox src={lightboxSrc} onClose={() => setLightboxSrc(null)} />}
     </div>
   )
 }
