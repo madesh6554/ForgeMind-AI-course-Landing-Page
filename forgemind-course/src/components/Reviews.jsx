@@ -79,7 +79,8 @@ function ReviewCard({ review }) {
   return (
     <div style={{
       background: 'var(--bg3)', border: '1px solid var(--bdr)', borderRadius: 16,
-      padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: 14,
+      padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 12,
+      height: 320, boxSizing: 'border-box',
       transform: `rotate(${review.rot}deg)`,
       transition: 'transform .25s ease, border-color .25s, box-shadow .25s',
       position: 'relative', overflow: 'hidden', cursor: 'default',
@@ -104,7 +105,7 @@ function ReviewCard({ review }) {
       </div>
 
       {/* Body paragraphs */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1, overflow: 'hidden' }}>
         {review.body.map((p, i) => (
           <p key={i} style={{
             fontSize: 13, lineHeight: 1.7, margin: 0,
@@ -131,17 +132,14 @@ function ReviewCard({ review }) {
   )
 }
 
-const CARD_W = 320
-const GAP = 20
+/* Each card item uses paddingRight for gap so translateX(-50%) lands exactly */
+const CARD_W = 300
+const CARD_GAP = 20
 const track = [...reviews, ...reviews]
 
 export default function Reviews() {
   const isMobile = useIsMobile()
-  const row1Ref = useRef(null)
-  const row2Ref = useRef(null)
-
-  const pause  = (ref) => { if (ref.current) ref.current.style.animationPlayState = 'paused' }
-  const resume = (ref) => { if (ref.current) ref.current.style.animationPlayState = 'running' }
+  const trackRef = useRef(null)
 
   return (
     <section className="rv" style={{ borderBottom: '1px solid var(--bdr)', padding: isMobile ? '52px 0' : '88px 0', overflow: 'hidden' }}>
@@ -153,54 +151,26 @@ export default function Reviews() {
         </div>
       </div>
 
-      {/* Row 1 — slides left */}
       <div
         style={{
           marginTop: 40, overflow: 'hidden',
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-          maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
         }}
-        onMouseEnter={() => pause(row1Ref)}
-        onMouseLeave={() => resume(row1Ref)}
+        onMouseEnter={() => { if (trackRef.current) trackRef.current.style.animationPlayState = 'paused' }}
+        onMouseLeave={() => { if (trackRef.current) trackRef.current.style.animationPlayState = 'running' }}
       >
         <div
-          ref={row1Ref}
+          ref={trackRef}
           style={{
-            display: 'flex', alignItems: 'flex-start', gap: GAP,
+            display: 'flex', alignItems: 'stretch',
             width: 'max-content',
-            animation: 'marqueeScroll 38s linear infinite',
+            animation: 'marqueeScroll 44s linear infinite',
             willChange: 'transform',
           }}
         >
           {track.map((r, i) => (
-            <div key={i} style={{ flexShrink: 0, width: CARD_W }}>
-              <ReviewCard review={r} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Row 2 — slides right (reverse direction) */}
-      <div
-        style={{
-          marginTop: GAP, overflow: 'hidden',
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-          maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-        }}
-        onMouseEnter={() => pause(row2Ref)}
-        onMouseLeave={() => resume(row2Ref)}
-      >
-        <div
-          ref={row2Ref}
-          style={{
-            display: 'flex', alignItems: 'flex-start', gap: GAP,
-            width: 'max-content',
-            animation: 'marqueeScroll 38s linear infinite reverse',
-            willChange: 'transform',
-          }}
-        >
-          {[...track].reverse().map((r, i) => (
-            <div key={i} style={{ flexShrink: 0, width: CARD_W }}>
+            <div key={i} style={{ flexShrink: 0, width: CARD_W, paddingRight: CARD_GAP, boxSizing: 'content-box' }}>
               <ReviewCard review={r} />
             </div>
           ))}
