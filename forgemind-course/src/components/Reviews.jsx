@@ -1,147 +1,129 @@
-import { useRef, useEffect } from 'react'
-import { SmileIcon } from './Icons'
+import { useIsMobile } from '../hooks/useIsMobile'
 
-const MicIcon = () => (
-  <svg width="14" height="14" fill="white" viewBox="0 0 24 24">
-    <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
-    <path d="M19 10v2a7 7 0 01-14 0v-2"/>
-    <line x1="12" y1="19" x2="12" y2="23"/>
-  </svg>
-)
-const SignalIcon = () => (
-  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-    <path d="M15.05 5A5 5 0 0119 8.95M15.05 1A9 9 0 0123 8.94"/>
-    <circle cx="12" cy="12" r="1"/>
-  </svg>
-)
-const CheckIcon = () => (
-  <svg fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ width: 10, height: 10 }}>
-    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+const StarIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="#facc15">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
   </svg>
 )
 
 const reviews = [
   {
-    name: 'Senthil Kumar', initial: 'S',
-    bubbles: [
-      { dir: 'in', msg: 'Bro, I just finished the combo course!', time: '10:14 AM' },
-      { dir: 'in', msg: 'These two courses together gave me everything I need to build complex AI agents on WhatsApp', time: '10:14 AM' },
-      { dir: 'out', msg: 'That\'s amazing! What was your favorite part?', time: '10:16 AM ✓✓' },
-      { dir: 'in', msg: 'The WhatsApp bot projects were insane. Built a customer support bot for my shop in 2 days', time: '10:18 AM' },
-      { dir: 'in', msg: 'தமிழில் இவ்வளவு தெளிவாக teach பண்றது அருமை', time: '10:19 AM' },
-    ]
+    initial: 'P', gradient: 'linear-gradient(135deg,#dc2626,#7c2d12)',
+    name: 'Pothiraja', role: 'Business Owner · Madurai', rot: -1.5,
+    body: [
+      'I recently purchased the n8n + WhatsApp combo course and I\'m extremely happy with my decision.',
+      'The explanations are clear, step-by-step, and easy to understand — even for beginners. What I liked the most is how the course focuses on real-world use cases. It\'s practical, not just theory.',
+      'Thank you, ForgeMind team. Highly recommend this to anyone who wants to grow in automation.',
+    ],
   },
   {
-    name: 'Manoj P.', initial: 'M',
-    bubbles: [
-      { dir: 'in', msg: 'Just wanted to say thank you', time: '2:30 PM' },
-      { dir: 'in', msg: 'Zero coding knowledge needed, as promised. I built my first workflow in the first week itself', time: '2:31 PM' },
-      { dir: 'out', msg: 'Happy to hear that!', time: '2:33 PM ✓✓' },
-      { dir: 'in', msg: 'Now I\'m charging clients ₹25K per automation project', time: '2:35 PM' },
-      { dir: 'in', msg: 'Best investment I made this year honestly', time: '2:35 PM' },
-    ]
+    initial: 'S', gradient: 'linear-gradient(135deg,#25d366,#075e54)',
+    name: 'Senthil Kumar', role: 'Freelance Automator · Chennai', rot: 1.2,
+    body: [
+      'Bro, finished the combo course last week and I had to message. Zero coding knowledge needed, as promised. Built my first n8n workflow in week 1 itself.',
+      'The WhatsApp Business Automation part was the real game-changer. Set up a customer support bot for my shop in 2 days. Already got 3 freelance projects from local businesses.',
+      'தமிழில் இவ்வளவு தெளிவா teach பண்றது அருமை. Best investment this year.',
+    ],
   },
   {
-    name: 'Vignesh T.', initial: 'V', status: 'last seen today at 11:42',
-    bubbles: [
-      { dir: 'in', msg: 'Most comprehensive syllabus I\'ve seen. From basics to API integration, everything is covered perfectly', time: '11:40 AM' },
-      { dir: 'in', msg: 'The n8n + WhatsApp combo is killer. I automated my entire lead follow-up system', time: '11:41 AM' },
-      { dir: 'out', msg: 'Which project helped you the most?', time: '11:43 AM ✓✓' },
-      { dir: 'in', msg: 'The Metro Bot project. It made everything click for me', time: '11:44 AM' },
-      { dir: 'in', msg: 'Also the template management module was super useful for bulk campaigns', time: '11:45 AM' },
-    ]
+    initial: 'R', gradient: 'linear-gradient(135deg,#3b82f6,#1e40af)',
+    name: 'Rajesh K.', role: 'Retail Shop Owner · Salem', rot: -1.0,
+    body: [
+      'Anna, I automated my entire customer follow-up on WhatsApp using what you taught. Order confirmations, payment reminders, delivery updates — everything runs by itself now.',
+      'Saving me 3+ hours every single day. The Metro Bot project was the moment everything clicked. The way you broke down each node was perfect.',
+      'Now planning to offer WhatsApp automation as a service. Already have 2 interested clients.',
+    ],
   },
   {
-    name: 'Kavitha R.', initial: 'K',
-    bubbles: [
-      { dir: 'in', msg: 'Perfect for beginners who want to start their automation journey', time: '4:20 PM' },
-      { dir: 'in', msg: 'I was scared about the technical parts but everything was explained so clearly in Tamil', time: '4:21 PM' },
-      { dir: 'out', msg: 'So happy to hear that!', time: '4:22 PM ✓✓' },
-      { dir: 'in', msg: 'My shop\'s WhatsApp now auto-replies to customers. They think I hired someone!', time: '4:24 PM' },
-    ]
+    initial: 'K', gradient: 'linear-gradient(135deg,#a78bfa,#6d28d9)',
+    name: 'Kavitha R.', role: 'Boutique Owner · Coimbatore', rot: 1.5,
+    body: [
+      'I\'m a small boutique owner and I was scared about anything technical. But this course made everything so simple. Every concept is explained clearly in Tamil and English.',
+      'My shop\'s WhatsApp now auto-replies to customers, sends them my catalog, and even confirms orders. They actually think I hired someone full-time.',
+      'The dashboard module helped me see all my customer enquiries in one place. Highly recommend to small business owners.',
+    ],
   },
   {
-    name: 'Rajesh K.', initial: 'R',
-    bubbles: [
-      { dir: 'in', msg: 'Anna, I automated my entire customer follow-up on WhatsApp', time: '9:05 AM' },
-      { dir: 'in', msg: 'Saving me 3+ hours every single day. This course is gold.', time: '9:05 AM' },
-      { dir: 'out', msg: 'That\'s the goal!', time: '9:08 AM ✓✓' },
-      { dir: 'in', msg: 'Now I\'m planning to offer WhatsApp automation as a service to other shops in my area', time: '9:10 AM' },
-      { dir: 'in', msg: '₹15K per project easy money', time: '9:10 AM' },
-    ]
+    initial: 'V', gradient: 'linear-gradient(135deg,#f59e0b,#b45309)',
+    name: 'Vignesh T.', role: 'Tech Lead · Bangalore', rot: -1.2,
+    body: [
+      'Most comprehensive automation course I\'ve taken so far. From the basics of n8n to advanced API integrations, OAuth setup, and full WhatsApp bot deployment — everything is covered in depth.',
+      'The n8n + WhatsApp combo is a killer combination. Got my Meta templates approved on the first try thanks to the guidance in template management module.',
+      'If you\'re serious about automation, this is THE course. Worth every rupee.',
+    ],
+  },
+  {
+    initial: 'M', gradient: 'linear-gradient(135deg,#10b981,#047857)',
+    name: 'Mohamed Haze', role: 'IT Specialist · Now in UAE', rot: 1.0,
+    highlight: 1,
+    body: [
+      'Thank you so much, I learnt a lot from your course.',
+      'I got a job offer from a company in UAE after learning from your course. The hands-on projects and real-world use cases gave me the practical edge during the interview.',
+      'The Group IT Manager role focuses on AI-driven solutions, and everything I learned in the course aligned perfectly with what they needed.',
+    ],
+  },
+  {
+    initial: 'A', gradient: 'linear-gradient(135deg,#06b6d4,#0e7490)',
+    name: 'Arun M.', role: 'Mechanical Engineer · Ramani Volkswagen', rot: -1.5,
+    highlight: 2,
+    body: [
+      'Hello ForgeMind AI Team, I\'m truly thankful for the n8n course you\'ve provided. I\'ve successfully completed it, and I must say — it was highly valuable.',
+      'The course helped me build a strong foundation in n8n, and the hands-on projects gave me a practical understanding that I deeply appreciate.',
+      'I\'m a Mechanical Engineer working as a Technician at Ramani Volkswagen. With this n8n knowledge, I\'m now transitioning into an automation-focused role and applying n8n for industry-level business automation.',
+    ],
   },
 ]
 
-const GAP = 24
-
-function PhoneReview({ review }) {
+function ReviewCard({ review }) {
   return (
-    <div
-      style={{ flex: '0 0 260px', scrollSnapAlign: 'center', transition: 'transform .3s', position: 'relative' }}
-      onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-6px)'}
-      onMouseLeave={e => e.currentTarget.style.transform = ''}
+    <div style={{
+      background: 'var(--bg3)', border: '1px solid var(--bdr)', borderRadius: 16,
+      padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: 14,
+      transform: `rotate(${review.rot}deg)`,
+      transition: 'transform .25s ease, border-color .25s, box-shadow .25s',
+      position: 'relative', overflow: 'hidden', cursor: 'default',
+    }}
+      onMouseEnter={e => {
+        e.currentTarget.style.transform = 'rotate(0deg) translateY(-4px)'
+        e.currentTarget.style.borderColor = 'var(--bdr2)'
+        e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,0,0,.4)'
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.transform = `rotate(${review.rot}deg)`
+        e.currentTarget.style.borderColor = 'var(--bdr)'
+        e.currentTarget.style.boxShadow = ''
+      }}
     >
-      <div style={{
-        background: '#1a1a1e', borderRadius: 32, padding: 10,
-        boxShadow: '0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06)', position: 'relative', overflow: 'hidden'
-      }}>
-        {/* Notch */}
-        <div style={{
-          position: 'absolute', top: 10, left: '50%', transform: 'translateX(-50%)',
-          width: 72, height: 20, background: '#000', borderRadius: '0 0 12px 12px', zIndex: 11,
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>
-          <div style={{ width: 8, height: 8, background: '#222', borderRadius: '50%', border: '1.5px solid #333' }}/>
-        </div>
+      {/* Big decorative quote mark */}
+      <div style={{ position: 'absolute', top: 10, right: 16, fontSize: 72, fontFamily: 'Georgia,serif', color: 'rgba(255,255,255,.04)', lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>"</div>
 
-        <div style={{ borderRadius: 22, overflow: 'hidden', aspectRatio: '9/17.5', background: '#0b141a', display: 'flex', flexDirection: 'column' }}>
-          {/* WA header */}
-          <div style={{ background: '#1f2c34', padding: '32px 12px 8px', display: 'flex', alignItems: 'center', gap: 8, position: 'relative', zIndex: 5 }}>
-            <span style={{ color: '#00a884', fontSize: 14 }}>‹</span>
-            <div style={{ width: 30, height: 30, background: 'linear-gradient(135deg,#128c7e,#25d366)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 600, color: '#fff' }}>{review.initial}</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#e9edef' }}>{review.name}</div>
-              <div style={{ fontSize: 9, color: '#8696a0' }}>{review.status || 'online'}</div>
-            </div>
-            <div style={{ color: '#aebac1' }}><SignalIcon /></div>
-          </div>
-
-          {/* Chat */}
-          <div style={{
-            background: '#0b141a', padding: '10px 8px', flex: 1,
-            display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: 4, position: 'relative'
-          }}>
-            {review.bubbles.map((b, i) => (
-              <div key={i} style={{
-                position: 'relative', zIndex: 1, maxWidth: '88%', padding: '6px 10px',
-                borderRadius: 8, fontSize: 11, lineHeight: 1.45, wordBreak: 'break-word',
-                background: b.dir === 'in' ? '#1f2c34' : '#005c4b',
-                color: '#e9edef',
-                alignSelf: b.dir === 'in' ? 'flex-start' : 'flex-end',
-                borderTopLeftRadius: b.dir === 'in' ? 2 : 8,
-                borderTopRightRadius: b.dir === 'out' ? 2 : 8,
-              }}>
-                {b.msg}
-                <div style={{ fontSize: 8, color: '#8696a0', textAlign: 'right', marginTop: 2 }}>{b.time}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Input bar */}
-          <div style={{ background: '#1f2c34', padding: '6px 8px', display: 'flex', alignItems: 'center', gap: 6 }}>
-            <SmileIcon size={14} />
-            <div style={{ flex: 1, background: '#2a3942', borderRadius: 20, padding: '6px 10px', fontSize: 10, color: '#8696a0' }}>Type a message</div>
-            <div style={{ width: 28, height: 28, background: '#00a884', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <MicIcon />
-            </div>
-          </div>
-        </div>
+      {/* Stars */}
+      <div style={{ display: 'flex', gap: 3 }}>
+        {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
       </div>
 
-      <div style={{ textAlign: 'center', marginTop: 16 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--t)' }}>{review.name}</div>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 10, color: 'var(--wa)', marginTop: 4, fontWeight: 500 }}>
-          <CheckIcon /> Verified Student
+      {/* Body paragraphs */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
+        {review.body.map((p, i) => (
+          <p key={i} style={{
+            fontSize: 13, lineHeight: 1.7, margin: 0,
+            color: i === review.highlight ? 'var(--t)' : 'var(--t2)',
+            fontWeight: i === review.highlight ? 600 : 400,
+          }}>{p}</p>
+        ))}
+      </div>
+
+      {/* Meta — avatar + name + role */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingTop: 14, borderTop: '1px solid var(--bdr)' }}>
+        <div style={{ width: 40, height: 40, borderRadius: '50%', background: review.gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+          {review.initial}
+        </div>
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--t)', display: 'flex', alignItems: 'center', gap: 5 }}>
+            {review.name}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--wa)" strokeWidth="2.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>{review.role}</div>
         </div>
       </div>
     </div>
@@ -149,110 +131,25 @@ function PhoneReview({ review }) {
 }
 
 export default function Reviews() {
-  const stripRef = useRef(null)
-  const drag = useRef({ active: false, startX: 0, scrollLeft: 0 })
-
-  /* Scroll to center phone (index 2 of 5) on mount */
-  useEffect(() => {
-    if (stripRef.current) {
-      const ITEM_W = 260 + GAP // 284px per phone
-      const centerIndex = Math.floor(reviews.length / 2) // index 2
-      stripRef.current.scrollLeft = ITEM_W * centerIndex
-    }
-  }, [])
-
-  const onMouseDown = (e) => {
-    drag.current = { active: true, startX: e.pageX - stripRef.current.offsetLeft, scrollLeft: stripRef.current.scrollLeft }
-    stripRef.current.style.cursor = 'grabbing'
-    stripRef.current.style.scrollSnapType = 'none'
-  }
-  const onMouseMove = (e) => {
-    if (!drag.current.active) return
-    e.preventDefault()
-    const x = e.pageX - stripRef.current.offsetLeft
-    stripRef.current.scrollLeft = drag.current.scrollLeft - (x - drag.current.startX) * 1.2
-  }
-  const stopDrag = () => {
-    if (!drag.current.active) return
-    drag.current.active = false
-    stripRef.current.style.cursor = 'grab'
-    stripRef.current.style.scrollSnapType = 'x mandatory'
-  }
+  const isMobile = useIsMobile()
 
   return (
-    <section className="rv" style={{ borderBottom: '1px solid var(--bdr)', padding: '88px 0' }}>
+    <section className="rv" style={{ borderBottom: '1px solid var(--bdr)', padding: isMobile ? '52px 0' : '88px 0' }}>
       <div className="ctr">
         <div className="shc">
-          <div className="slbl">Student Reviews</div>
-          <div className="stl">Real feedback. Straight from WhatsApp.</div>
-          <div className="sdsc">Unfiltered reviews from students who completed the course — no edits, no filters.</div>
+          <div className="slbl">Echo of Results</div>
+          <div className="stl">Straight from our Community</div>
+          <div className="sdsc">Unfiltered reviews from people who completed the course, no edits, no filters.</div>
         </div>
-      </div>
 
-      {/* Spotlight carousel — center phone full, adjacent 50% faded, edges hidden */}
-      <div
-        ref={stripRef}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={stopDrag}
-        onMouseLeave={stopDrag}
-        style={{
-          display: 'flex', gap: GAP,
-          /* padding centers first & last phone so they can snap to center */
-          padding: '8px calc(50% - 130px) 32px',
-          overflowX: 'auto',
-          scrollSnapType: 'x mandatory',
-          scrollPaddingInline: 'calc(50% - 130px)',
-          WebkitOverflowScrolling: 'touch',
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
-          cursor: 'grab',
-          userSelect: 'none',
-          marginTop: 40,
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, transparent 15%, black 25%, black 75%, transparent 85%, transparent 100%)',
-          maskImage: 'linear-gradient(to right, transparent 0%, transparent 15%, black 25%, black 75%, transparent 85%, transparent 100%)',
-        }}
-      >
-        {reviews.map((r, i) => <PhoneReview key={i} review={r} />)}
-      </div>
-
-      <div className="ctr">
-        <div style={{ textAlign: 'center', marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-          {/* Left arrow */}
-          <button
-            onClick={() => { stripRef.current.scrollBy({ left: -284, behavior: 'smooth' }) }}
-            style={{
-              width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--bdr2)',
-              background: 'var(--bg3)', color: 'var(--t2)', cursor: 'pointer',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              transition: 'border-color .2s, color .2s',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor='var(--red2)'; e.currentTarget.style.color='var(--red2)' }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor='var(--bdr2)'; e.currentTarget.style.color='var(--t2)' }}
-          >
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/>
-            </svg>
-          </button>
-
-          <span style={{ fontSize: 13, color: 'var(--t3)' }}>Drag or click arrows to scroll</span>
-
-          {/* Right arrow */}
-          <button
-            onClick={() => { stripRef.current.scrollBy({ left: 284, behavior: 'smooth' }) }}
-            style={{
-              width: 38, height: 38, borderRadius: '50%', border: '1px solid var(--bdr2)',
-              background: 'var(--bg3)', color: 'var(--t2)', cursor: 'pointer',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              transition: 'border-color .2s, color .2s',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor='var(--red2)'; e.currentTarget.style.color='var(--red2)' }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor='var(--bdr2)'; e.currentTarget.style.color='var(--red2)' }}
-          >
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </button>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)',
+          gap: isMobile ? 16 : 20,
+          marginTop: isMobile ? 32 : 48,
+          alignItems: 'start',
+        }}>
+          {reviews.map((r, i) => <ReviewCard key={i} review={r} />)}
         </div>
       </div>
     </section>

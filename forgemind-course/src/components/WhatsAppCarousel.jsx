@@ -160,7 +160,7 @@ export default function WhatsAppCarousel({ sectionRef }) {
             ))}
           </div>
           <div className="sdsc" style={{ margin: '0 auto', fontSize: isMobile ? 14 : 16 }}>
-            Every industry is moving to WhatsApp for sales, support, and operations. Here's what you'll be able to automate.
+            Every industry is moving to WhatsApp for sales, support, and operations. Here's what you'll be able to automate
           </div>
         </div>
 

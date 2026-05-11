@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import './index.css'
+import { useIsMobile } from './hooks/useIsMobile'
 
 import TopBar from './components/TopBar'
 import Navbar from './components/Navbar'
@@ -44,6 +45,7 @@ function useReveal() {
 
 export default function App() {
   useReveal()
+  const isMobile = useIsMobile()
 
   return (
     <div style={{ minHeight: '100vh' }}>
@@ -72,7 +74,7 @@ export default function App() {
         href="https://wa.me/919342245724?text=Hi!%20I%20have%20a%20question%20about%20the%20course"
         target="_blank" rel="noopener noreferrer"
         style={{
-          position: 'fixed', bottom: 88, right: 16, zIndex: 200,
+          position: 'fixed', bottom: isMobile ? 88 : 24, right: isMobile ? 16 : 24, zIndex: 200,
           width: 54, height: 54, borderRadius: '50%',
           background: '#25D366', display: 'flex', alignItems: 'center', justifyContent: 'center',
           boxShadow: '0 4px 20px rgba(37,211,102,.45)',

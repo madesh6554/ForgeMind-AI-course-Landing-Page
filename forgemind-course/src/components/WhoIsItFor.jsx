@@ -23,10 +23,19 @@ export default function WhoIsItFor() {
             <div key={i} style={{
               padding: isMobile ? '20px 16px' : '28px 24px',
               background: 'var(--bg3)', border: '1px solid var(--bdr)',
-              borderRadius: 12, transition: '.2s'
+              borderRadius: 12, transition: 'transform .25s, border-color .25s, box-shadow .25s',
+              cursor: 'default',
             }}
-              onMouseEnter={e => e.currentTarget.style.borderColor='var(--bdr2)'}
-              onMouseLeave={e => e.currentTarget.style.borderColor='var(--bdr)'}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = 'var(--red2)'
+                e.currentTarget.style.transform = 'translateY(-6px)'
+                e.currentTarget.style.boxShadow = '0 12px 40px rgba(229,9,20,.15)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = 'var(--bdr)'
+                e.currentTarget.style.transform = ''
+                e.currentTarget.style.boxShadow = ''
+              }}
             >
               <div style={{ marginBottom: 10, color: 'var(--red2)' }}>{a.icon}</div>
               <h4 style={{ fontSize: isMobile ? 13 : 15, fontWeight: 600, marginBottom: 6 }}>{a.title}</h4>

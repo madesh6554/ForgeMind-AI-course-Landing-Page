@@ -76,9 +76,22 @@ export default function BuildWithUs() {
           border: '1px solid var(--bdr)', borderRadius: 16, overflow: 'hidden'
         }}>
           {projects.map((p, i) => (
-            <div key={i} style={{ padding: isMobile ? '28px 24px' : '36px 32px', background: 'var(--bg3)' }}>
+            <div key={i} style={{ padding: isMobile ? '28px 24px' : '36px 32px', background: 'var(--bg3)', transition: 'background .25s, box-shadow .25s', cursor: 'default' }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'var(--bg3h)'
+                e.currentTarget.style.boxShadow = 'inset 0 0 0 1px rgba(229,9,20,.25)'
+                const ico = e.currentTarget.querySelector('[data-ico]')
+                if (ico) { ico.style.color = 'var(--red2)'; ico.style.filter = 'drop-shadow(0 0 8px rgba(229,9,20,.5))' }
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'var(--bg3)'
+                e.currentTarget.style.boxShadow = ''
+                const ico = e.currentTarget.querySelector('[data-ico]')
+                if (ico) { ico.style.color = 'var(--red2)'; ico.style.filter = '' }
+              }}
+            >
               <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 10, color: 'var(--t3)', letterSpacing: 2, marginBottom: 16 }}>{p.num}</div>
-              <div style={{ marginBottom: 12, color: 'var(--red2)' }}>{p.icon}</div>
+              <div data-ico="1" style={{ marginBottom: 12, color: 'var(--red2)', transition: 'filter .25s' }}>{p.icon}</div>
               <div style={{ fontSize: isMobile ? 16 : 18, fontWeight: 700, color: 'var(--t)', letterSpacing: -.3, marginBottom: 8 }}>{p.title}</div>
               <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.75, marginBottom: 20 }}>{p.desc}</div>
               <div style={{ width: '100%', height: 1, background: 'var(--bdr)', marginBottom: 16 }}/>

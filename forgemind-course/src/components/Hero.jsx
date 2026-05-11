@@ -46,7 +46,7 @@ export default function Hero() {
               letterSpacing: '0.06em', textTransform: 'uppercase'
             }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--red)', display: 'inline-block', boxShadow: '0 0 6px var(--red)' }} />
-              Combo Course · Tamil · Live Batches
+              Combo Course · Tamil · No Code
             </span>
           </div>
 
