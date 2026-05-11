@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 const StarIcon = () => (
@@ -130,26 +131,79 @@ function ReviewCard({ review }) {
   )
 }
 
+const CARD_W = 320
+const GAP = 20
+const track = [...reviews, ...reviews]
+
 export default function Reviews() {
   const isMobile = useIsMobile()
+  const row1Ref = useRef(null)
+  const row2Ref = useRef(null)
+
+  const pause  = (ref) => { if (ref.current) ref.current.style.animationPlayState = 'paused' }
+  const resume = (ref) => { if (ref.current) ref.current.style.animationPlayState = 'running' }
 
   return (
-    <section className="rv" style={{ borderBottom: '1px solid var(--bdr)', padding: isMobile ? '52px 0' : '88px 0' }}>
+    <section className="rv" style={{ borderBottom: '1px solid var(--bdr)', padding: isMobile ? '52px 0' : '88px 0', overflow: 'hidden' }}>
       <div className="ctr">
         <div className="shc">
           <div className="slbl">Echo of Results</div>
           <div className="stl">Straight from our Community</div>
           <div className="sdsc">Unfiltered reviews from people who completed the course, no edits, no filters.</div>
         </div>
+      </div>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)',
-          gap: isMobile ? 16 : 20,
-          marginTop: isMobile ? 32 : 48,
-          alignItems: 'start',
-        }}>
-          {reviews.map((r, i) => <ReviewCard key={i} review={r} />)}
+      {/* Row 1 — slides left */}
+      <div
+        style={{
+          marginTop: 40, overflow: 'hidden',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+        }}
+        onMouseEnter={() => pause(row1Ref)}
+        onMouseLeave={() => resume(row1Ref)}
+      >
+        <div
+          ref={row1Ref}
+          style={{
+            display: 'flex', alignItems: 'flex-start', gap: GAP,
+            width: 'max-content',
+            animation: 'marqueeScroll 38s linear infinite',
+            willChange: 'transform',
+          }}
+        >
+          {track.map((r, i) => (
+            <div key={i} style={{ flexShrink: 0, width: CARD_W }}>
+              <ReviewCard review={r} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Row 2 — slides right (reverse direction) */}
+      <div
+        style={{
+          marginTop: GAP, overflow: 'hidden',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+        }}
+        onMouseEnter={() => pause(row2Ref)}
+        onMouseLeave={() => resume(row2Ref)}
+      >
+        <div
+          ref={row2Ref}
+          style={{
+            display: 'flex', alignItems: 'flex-start', gap: GAP,
+            width: 'max-content',
+            animation: 'marqueeScroll 38s linear infinite reverse',
+            willChange: 'transform',
+          }}
+        >
+          {[...track].reverse().map((r, i) => (
+            <div key={i} style={{ flexShrink: 0, width: CARD_W }}>
+              <ReviewCard review={r} />
+            </div>
+          ))}
         </div>
       </div>
     </section>
