@@ -17,8 +17,8 @@ const files = fs.readdirSync(INPUT).filter(f => /\.(png|jpg|jpeg|webp)$/i.test(f
     const name = path.parse(file).name
     const out  = path.join(OUTPUT, `${name}.webp`)
     await sharp(path.join(INPUT, file))
-      .resize(220, 140, { fit: 'cover' })
-      .webp({ quality: 72 })
+      .resize(720, 405, { fit: 'cover' })
+      .webp({ quality: 82 })
       .toFile(out)
     const inKB  = (fs.statSync(path.join(INPUT, file)).size / 1024).toFixed(1)
     const outKB = (fs.statSync(out).size / 1024).toFixed(1)

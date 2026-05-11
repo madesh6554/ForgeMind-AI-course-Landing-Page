@@ -1,14 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
 const slides = [
-  { thumb: '/course-images/thumbs/Week1.webp',           full: '/course-images/Week1.png',                 cap: 'What is n8n? — Course Introduction' },
-  { thumb: '/course-images/thumbs/Week2.webp',           full: '/course-images/Week2.png',                 cap: 'n8n Fundamentals — Setting Up Your Engine' },
-  { thumb: '/course-images/thumbs/preview-whatsapp-api.webp', full: '/course-images/preview-whatsapp-api.png', cap: 'WhatsApp API Setup — Meta Developer Console' },
-  { thumb: '/course-images/thumbs/preview-n8n-workflow.webp', full: '/course-images/preview-n8n-workflow.png', cap: 'n8n Workflow Editor — Metro Bot Build' },
-  { thumb: '/course-images/thumbs/preview-shopify.webp', full: '/course-images/preview-shopify.png',       cap: 'Shopify Integration — E-Commerce Automation' },
-  { thumb: '/course-images/thumbs/preview-api-concepts.webp', full: '/course-images/preview-api-concepts.png', cap: 'API Concepts — Visual Learning' },
-  { thumb: '/course-images/thumbs/preview-http-request.webp', full: '/course-images/preview-http-request.png', cap: 'HTTP Requests — Hands-On Diagrams' },
+  { thumb: '/course-images/thumbs/Week1.webp',                full: '/course-images/Week1.png',                 cap: '01 — What is n8n? — Course Introduction' },
+  { thumb: '/course-images/thumbs/Week2.webp',                full: '/course-images/Week2.png',                 cap: '02 — n8n Fundamentals — Setting Up Your Engine' },
+  { thumb: '/course-images/thumbs/preview-api-concepts.webp', full: '/course-images/preview-api-concepts.png',  cap: '03 — API Concepts — How Apps Talk to Each Other' },
+  { thumb: '/course-images/thumbs/preview-http-request.webp', full: '/course-images/preview-http-request.png',  cap: '04 — HTTP Requests — Hands-On Visual Diagrams' },
+  { thumb: '/course-images/thumbs/preview-n8n-workflow.webp', full: '/course-images/preview-n8n-workflow.png',  cap: '05 — n8n Workflow Editor — Metro Bot Build' },
+  { thumb: '/course-images/thumbs/preview-whatsapp-api.webp', full: '/course-images/preview-whatsapp-api.png',  cap: '06 — WhatsApp API Setup — Meta Developer Console' },
+  { thumb: '/course-images/thumbs/preview-shopify.webp',      full: '/course-images/preview-shopify.png',       cap: '07 — Shopify Integration — E-Commerce Automation' },
 ]
 
 function LightboxPortal({ src, onClose }) {
@@ -51,6 +51,29 @@ function LightboxPortal({ src, onClose }) {
 export default function CoursePreview() {
   const [active, setActive] = useState(0)
   const [lightbox, setLightbox] = useState(null)
+  const [paused, setPaused] = useState(false)
+  const timerRef = useRef(null)
+
+  useEffect(() => {
+    if (paused) return
+    timerRef.current = setInterval(() => {
+      setActive(a => (a + 1) % slides.length)
+    }, 3500)
+    return () => clearInterval(timerRef.current)
+  }, [paused])
+
+  useEffect(() => {
+    const card = document.getElementById(`preview-card-${active}`)
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+  }, [active])
+
+  function pick(i) {
+    setActive(i)
+    setPaused(true)
+    clearInterval(timerRef.current)
+    // resume auto-scroll after 8s of no interaction
+    setTimeout(() => setPaused(false), 8000)
+  }
 
   return (
     <>
@@ -68,17 +91,22 @@ export default function CoursePreview() {
         </div>
 
         {/* scrollable card track */}
-        <div style={{
-          display: 'flex', gap: 14, overflowX: 'auto', scrollSnapType: 'x mandatory',
-          WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', paddingBottom: 4,
-        }}>
+        <div
+          id="preview-track"
+          style={{
+            display: 'flex', gap: 14, overflowX: 'auto', scrollSnapType: 'x mandatory',
+            WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', paddingBottom: 4,
+            scrollBehavior: 'smooth',
+          }}
+        >
           {slides.map((s, i) => (
             <div
               key={i}
-              onClick={() => { setActive(i); setLightbox(s.full) }}
+              id={`preview-card-${i}`}
+              onClick={() => { pick(i); setLightbox(s.full) }}
               style={{
-                flex: '0 0 360px', scrollSnapAlign: 'center', borderRadius: 10,
-                overflow: 'hidden', cursor: 'pointer', transition: 'border-color .2s, transform .2s',
+                flex: '0 0 360px', scrollSnapAlign: 'start', borderRadius: 10,
+                overflow: 'hidden', cursor: 'pointer', transition: 'border-color .2s, transform .3s',
                 border: `2px solid ${active === i ? 'var(--red)' : 'var(--bdr)'}`,
                 background: 'var(--bg3)',
                 transform: active === i ? 'translateY(-3px)' : 'none',
@@ -105,7 +133,7 @@ export default function CoursePreview() {
           {slides.map((_, i) => (
             <div
               key={i}
-              onClick={() => setActive(i)}
+              onClick={() => pick(i)}
               style={{
                 width: active === i ? 20 : 6, height: 6,
                 borderRadius: active === i ? 3 : '50%',
