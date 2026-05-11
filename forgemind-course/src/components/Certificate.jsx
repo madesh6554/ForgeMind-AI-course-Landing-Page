@@ -157,12 +157,7 @@ export default function Certificate() {
                 }}>
 
                   {/* Logo */}
-                  <div style={{ width: 72, height: 72, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 4 }}>
-                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none">
-                      <rect width="24" height="24" rx="6" fill="#E50914"/>
-                      <path d="M13.5 3L5 13.5h6L9.5 21 19 10.5h-6L13.5 3z" fill="white"/>
-                    </svg>
-                  </div>
+                  <img src="/forgemind-logo-static.png" alt="ForgeMind AI" style={{ width: 72, height: 72, objectFit: 'contain', marginBottom: 4 }}/>
                   <div style={{ fontSize: 16, fontWeight: 700, fontFamily: "'Josefin Sans',sans-serif", letterSpacing: 3, color: '#1a1a1a', marginBottom: 6 }}>
                     FORGEMIND<span style={{ color: '#DC2626' }}>AI</span>
                   </div>
