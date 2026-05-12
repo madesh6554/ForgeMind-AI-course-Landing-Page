@@ -179,8 +179,8 @@ export default function WhatsAppCarousel({ sectionRef }) {
             {/* Floating badges — desktop only */}
             {!isMobile && (
               <>
-                {/* Left side badges */}
-                <div style={{ position: 'absolute', left: 0, top: '25%', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {/* Left side badges — key remounts on switch so entrance re-runs */}
+                <div key={`left-${activeIdx}`} style={{ position: 'absolute', left: 0, top: '25%', display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {carouselData[activeIdx].left.map((txt, i) => (
                     <div key={i} style={{
                       background: i === 1 ? 'rgba(250,204,21,0.12)' : 'rgba(37,211,102,0.12)',
@@ -188,14 +188,14 @@ export default function WhatsAppCarousel({ sectionRef }) {
                       color: i === 1 ? '#fcd34d' : 'var(--wa)',
                       borderRadius: 100, padding: '6px 12px',
                       fontSize: 11, fontWeight: 600, whiteSpace: 'nowrap',
-                      animation: `floatBadge ${2.8 + i * 0.4}s ease-in-out infinite`,
+                      animation: `badgeEnter 0.4s ease ${i * 0.28}s both, floatBadge ${2.8 + i * 0.4}s ease-in-out ${i * 0.28 + 0.4}s infinite`,
                       boxShadow: i === 1 ? '0 4px 16px rgba(250,204,21,0.15)' : '0 4px 16px rgba(37,211,102,0.15)',
                     }}>{txt}</div>
                   ))}
                 </div>
 
                 {/* Right side badges */}
-                <div style={{ position: 'absolute', right: 0, top: '40%', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div key={`right-${activeIdx}`} style={{ position: 'absolute', right: 0, top: '40%', display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {carouselData[activeIdx].right.map((txt, i) => (
                     <div key={i} style={{
                       background: i === 0 ? 'rgba(37,211,102,0.12)' : 'rgba(255,255,255,0.05)',
@@ -203,7 +203,7 @@ export default function WhatsAppCarousel({ sectionRef }) {
                       color: i === 0 ? 'var(--wa)' : 'var(--t2)',
                       borderRadius: 100, padding: '6px 12px',
                       fontSize: 11, fontWeight: 600, whiteSpace: 'nowrap',
-                      animation: `floatBadge ${3.2 + i * 0.5}s ease-in-out infinite`,
+                      animation: `badgeEnter 0.4s ease ${0.14 + i * 0.28}s both, floatBadge ${3.2 + i * 0.5}s ease-in-out ${0.14 + i * 0.28 + 0.4}s infinite`,
                       boxShadow: i === 0 ? '0 4px 16px rgba(37,211,102,0.15)' : 'none',
                     }}>{txt}</div>
                   ))}
