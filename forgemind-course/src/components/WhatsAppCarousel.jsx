@@ -173,14 +173,14 @@ export default function WhatsAppCarousel({ sectionRef }) {
           marginTop: 40
         }}>
           {/* Phone + floating badges wrapper */}
-          <div style={{ position: 'relative', padding: isMobile ? '0 90px' : '0 110px' }}>
+          <div style={{ position: 'relative', padding: isMobile ? 0 : '0 110px' }}>
             <PhoneMockup data={carouselData[activeIdx]} isMobile={isMobile} />
 
 
             {/* Floating badges — left and right of phone (both mobile & desktop) */}
             <>
               {/* Left side badges */}
-              <div key={`left-${activeIdx}`} style={{ position: 'absolute', left: 0, top: '25%', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div key={`left-${activeIdx}`} style={{ position: 'absolute', left: isMobile ? 2 : 0, top: '25%', display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {carouselData[activeIdx].left.map((txt, i) => (
                   <div key={i} style={{
                     background: i === 1 ? 'rgba(250,204,21,0.12)' : 'rgba(37,211,102,0.12)',
@@ -195,7 +195,7 @@ export default function WhatsAppCarousel({ sectionRef }) {
               </div>
 
               {/* Right side badges */}
-              <div key={`right-${activeIdx}`} style={{ position: 'absolute', right: 0, top: '40%', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div key={`right-${activeIdx}`} style={{ position: 'absolute', right: isMobile ? 2 : 0, top: '40%', display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {carouselData[activeIdx].right.map((txt, i) => (
                   <div key={i} style={{
                     background: i === 0 ? 'rgba(37,211,102,0.12)' : 'rgba(255,255,255,0.05)',
