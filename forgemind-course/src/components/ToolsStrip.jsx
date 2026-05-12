@@ -134,32 +134,41 @@ export default function ToolsStrip() {
         Tools you'll learn in this course
       </div>
 
-      {/* Scrolling track — full width, mask fades at screen edges */}
-      <div
-        style={{
-          overflowX: 'clip',
-          overflowY: 'visible',
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-          maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-        }}
-        onMouseEnter={pause}
-        onMouseLeave={resume}
-      >
-
+      {/* Scrolling track — gradient overlays fake the edge fade (no mask = tooltips visible) */}
+      <div style={{ position: 'relative' }}>
         <div
-          ref={trackRef}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: 'max-content',
-            animation: 'marqueeScroll 28s linear infinite',
-            willChange: 'transform',
-          }}
+          style={{ overflowX: 'clip', overflowY: 'visible' }}
+          onMouseEnter={pause}
+          onMouseLeave={resume}
         >
-          {track.map((t, i) => (
-            <LogoItem key={i} tool={t} />
-          ))}
+          <div
+            ref={trackRef}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              width: 'max-content',
+              animation: 'marqueeScroll 28s linear infinite',
+              willChange: 'transform',
+            }}
+          >
+            {track.map((t, i) => (
+              <LogoItem key={i} tool={t} />
+            ))}
+          </div>
         </div>
+
+        {/* Left edge fade */}
+        <div style={{
+          position: 'absolute', left: 0, top: 0, bottom: 0, width: '8%',
+          background: 'linear-gradient(to right, #0a0a0f, transparent)',
+          pointerEvents: 'none', zIndex: 2,
+        }} />
+        {/* Right edge fade */}
+        <div style={{
+          position: 'absolute', right: 0, top: 0, bottom: 0, width: '8%',
+          background: 'linear-gradient(to left, #0a0a0f, transparent)',
+          pointerEvents: 'none', zIndex: 2,
+        }} />
       </div>
     </div>
   )
