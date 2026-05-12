@@ -173,7 +173,7 @@ export default function WhatsAppCarousel({ sectionRef }) {
           marginTop: 40
         }}>
           {/* Phone + floating badges wrapper */}
-          <div style={{ position: 'relative', padding: isMobile ? '0 80px' : '0 60px' }}>
+          <div style={{ position: 'relative', padding: isMobile ? '0 90px' : '0 110px' }}>
             <PhoneMockup data={carouselData[activeIdx]} isMobile={isMobile} />
 
 
