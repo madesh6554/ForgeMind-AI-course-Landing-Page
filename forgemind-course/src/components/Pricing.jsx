@@ -7,14 +7,6 @@ const priceDets = [
   { icon: <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>, text: 'Prerecorded Course' },
 ]
 
-const highlights = [
-  { label: '18 Modules', sub: 'n8n (10) + WhatsApp (8) — complete curriculum' },
-  { label: 'Lifetime Access', sub: 'Watch anytime, forever. No expiry.' },
-  { label: 'Real Projects', sub: 'Build 3 production-ready bots from scratch' },
-  { label: 'Tamil Medium', sub: 'English technical terms, Tamil explanations' },
-  { label: 'Community Access', sub: 'Ask questions, get feedback from peers' },
-  { label: 'Course Updates', sub: 'Free access to all future module additions' },
-]
 
 export default function Pricing() {
   const isMobile = useIsMobile()
@@ -27,87 +19,16 @@ export default function Pricing() {
       }}/>
       <div className="ctr">
 
-        {isMobile ? (
-          /* ── Mobile: centered single column ── */
-          <div style={{ textAlign: 'center' }}>
-            <div className="shc">
-              <div className="slbl">Pricing</div>
-              <div className="stl">One combo. Lifetime access.</div>
-              <div className="sdsc">Get both courses at a bundled price — save ₹800.</div>
-            </div>
-            <PriceCard isMobile={true} />
-            <IndividualCards isMobile={true} />
+        {/* ── Shared layout: centered single column ── */}
+        <div style={{ textAlign: 'center' }}>
+          <div className="shc">
+            <div className="slbl">Pricing</div>
+            <div className="stl">One combo. Lifetime access.</div>
+            <div className="sdsc">Get both courses at a bundled price — save ₹800.</div>
           </div>
-        ) : (
-          /* ── Desktop: two columns ── */
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 420px', gap: 80, alignItems: 'flex-start' }}>
-
-            {/* Left: heading + what's inside */}
-            <div>
-              <div className="slbl" style={{ marginBottom: 12 }}>Pricing</div>
-              <h2 className="stl" style={{ marginBottom: 12, textAlign: 'left' }}>One combo.<br />Lifetime access.</h2>
-              <p style={{ fontSize: 16, color: 'var(--t2)', lineHeight: 1.7, marginBottom: 40 }}>
-                Get both courses at a bundled price — save ₹800.
-              </p>
-
-              {/* Highlights grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 40 }}>
-                {highlights.map((h, i) => (
-                  <div key={i} style={{
-                    padding: '16px 18px',
-                    background: 'var(--bg3)', border: '1px solid var(--bdr)', borderRadius: 12,
-                  }}>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--t)', marginBottom: 4 }}>{h.label}</div>
-                    <div style={{ fontSize: 12, color: 'var(--t3)', lineHeight: 1.5 }}>{h.sub}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Individual cards */}
-              <div style={{ fontSize: 12, color: 'var(--t3)', letterSpacing: 1, textTransform: 'uppercase', fontWeight: 500, marginBottom: 14 }}>
-                Or buy individually
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                {[
-                  { name: 'n8n Starter Course', sub: '10 modules · Complete automation foundation', price: '₹1,799', old: '₹2,999', color: 'var(--red)', btn: 'Buy n8n Course →', wa: 'https://wa.me/919342245724?text=Hi!%20I%20want%20to%20buy%20the%20N8N%20Starter%20Course%20%E2%82%B91%2C799' },
-                  { name: 'WhatsApp AI Automation', sub: '8 modules · Production-ready WhatsApp bots', price: '₹1,499', old: '₹1,999', color: 'var(--wa)', btn: 'Buy WhatsApp Course →', wa: 'https://wa.me/919342245724?text=Hi!%20I%20want%20to%20buy%20the%20WhatsApp%20AI%20Automation%20Course%20%E2%82%B91%2C499' },
-                ].map((c, i) => (
-                  <div key={i} style={{
-                    padding: '16px 18px', background: 'var(--bg3)',
-                    border: '1px solid var(--bdr)', borderRadius: 12, textAlign: 'left', transition: 'border-color .2s'
-                  }}
-                    onMouseEnter={e => e.currentTarget.style.borderColor='var(--bdr2)'}
-                    onMouseLeave={e => e.currentTarget.style.borderColor='var(--bdr)'}
-                  >
-                    <h4 style={{ fontSize: 13, fontWeight: 600, marginBottom: 2, display: 'flex', alignItems: 'center', gap: 6 }}>
-                      <span style={{ width: 6, height: 6, borderRadius: '50%', background: c.color, flexShrink: 0 }}/>
-                      {c.name}
-                    </h4>
-                    <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 10 }}>{c.sub}</div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 10 }}>
-                      <span style={{ fontSize: 20, fontWeight: 700, fontFamily: "'JetBrains Mono',monospace" }}>{c.price}</span>
-                      <span style={{ fontSize: 12, color: 'var(--t3)', textDecoration: 'line-through' }}>{c.old}</span>
-                    </div>
-                    <a href={c.wa} target="_blank" rel="noopener noreferrer" style={{
-                      width: '100%', padding: '8px', background: 'transparent', color: 'var(--t2)',
-                      border: '1px solid var(--bdr)', borderRadius: 8, fontFamily: 'inherit',
-                      fontSize: 12, fontWeight: 600, cursor: 'pointer', textDecoration: 'none',
-                      display: 'block', textAlign: 'center', transition: '.2s'
-                    }}
-                      onMouseEnter={e => { e.currentTarget.style.borderColor='var(--bdr2)'; e.currentTarget.style.color='var(--t)' }}
-                      onMouseLeave={e => { e.currentTarget.style.borderColor='var(--bdr)'; e.currentTarget.style.color='var(--t2)' }}
-                    >{c.btn}</a>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right: sticky price card */}
-            <div style={{ position: 'sticky', top: 100 }}>
-              <PriceCard isMobile={false} />
-            </div>
-          </div>
-        )}
+          <PriceCard isMobile={isMobile} />
+          <IndividualCards isMobile={isMobile} />
+        </div>
 
       </div>
     </section>
@@ -117,8 +38,8 @@ export default function Pricing() {
 function PriceCard({ isMobile }) {
   return (
     <div style={{
-      maxWidth: isMobile ? 440 : undefined,
-      margin: isMobile ? '40px auto 0' : 0,
+      maxWidth: isMobile ? 440 : 520,
+      margin: '40px auto 0',
       padding: isMobile ? '28px 20px' : '36px 32px',
       background: 'var(--bg3)',
       border: '1px solid rgba(229,9,20,0.2)',
