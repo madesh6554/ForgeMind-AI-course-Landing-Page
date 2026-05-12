@@ -5,14 +5,14 @@ import { ShoppingCartIcon, CalendarIcon, BotIcon, TrendingUpIcon, BarChartIcon, 
 const DURATION = 4000
 
 const carouselData = [
-  { icon: <ShoppingCartIcon size={16} />, name: 'Store Bot', notif: 'New Order Placed!', chats: [{ t: 'in', m: 'Hi! Your order #1234 has been confirmed' }, { t: 'out', m: 'Great! When will it arrive?' }, { t: 'in', m: 'Expected delivery: Tomorrow, 2–4 PM' }] },
-  { icon: <CalendarIcon size={16} />, name: 'Booking Bot', notif: 'Slot Confirmed!', chats: [{ t: 'in', m: 'Hi! Reply 1 for Morning, 2 for Afternoon' }, { t: 'out', m: '1' }, { t: 'in', m: 'Your slot is booked: Tomorrow 10 AM. See you!' }] },
-  { icon: <BotIcon size={16} />, name: 'Support Bot', notif: 'Query Resolved!', chats: [{ t: 'out', m: 'My order is wrong!' }, { t: 'in', m: 'Sorry about that! Can you share your order ID?' }, { t: 'out', m: '#5678' }, { t: 'in', m: 'Got it, raising a replacement request now.' }] },
-  { icon: <TrendingUpIcon size={16} />, name: 'Sales Bot', notif: 'New Lead Qualified!', chats: [{ t: 'in', m: 'Hi! Interested in our product? Reply YES to see pricing' }, { t: 'out', m: 'YES' }, { t: 'in', m: 'Great! Our starter plan is ₹999/mo. Want a demo?' }] },
-  { icon: <BarChartIcon size={16} />, name: 'Follow-up Bot', notif: 'Follow-up Sent!', chats: [{ t: 'in', m: 'Hi Rajesh! You visited our site yesterday. Any questions?' }, { t: 'out', m: "Yes! What's your turnaround time?" }, { t: 'in', m: '2–3 business days. Want to place an order?' }] },
-  { icon: <MegaphoneIcon size={16} />, name: 'Campaign Bot', notif: 'Campaign Delivered!', chats: [{ t: 'in', m: 'FLASH SALE! 30% off today only. Use code FORGE30' }, { t: 'in', m: 'Tap to shop: forgemind.in/shop' }, { t: 'out', m: 'Just placed my order!' }] },
-  { icon: <TagIcon size={16} />, name: 'Lead Bot', notif: '12 Leads Captured!', chats: [{ t: 'in', m: 'Hi! Saw your ad on Instagram. What does your service include?' }, { t: 'in', m: 'Check our brochure [link]' }, { t: 'out', m: 'Wow! How do I sign up?' }] },
-  { icon: <MessageCircleIcon size={16} />, name: 'AI Chat Bot', notif: 'AI Reply Sent!', chats: [{ t: 'out', m: 'Do you deliver to Chennai?' }, { t: 'in', m: 'Yes we do! Delivery takes 3–5 days.' }, { t: 'out', m: 'What about Coimbatore?' }, { t: 'in', m: 'Same! 3–5 days. Want to place an order?' }] },
+  { icon: <ShoppingCartIcon size={16} />, name: 'Store Bot', notif: 'New Order Placed!', chats: [{ t: 'in', m: 'Hi! Your order #1234 has been confirmed' }, { t: 'out', m: 'Great! When will it arrive?' }, { t: 'in', m: 'Expected delivery: Tomorrow, 2–4 PM' }], left: ['✓ Auto confirmations', '⏱ 3+ hrs/week saved'], right: ['Sell for ₹2,500–₹6,000', '🏪 E-commerce & retail'] },
+  { icon: <CalendarIcon size={16} />, name: 'Booking Bot', notif: 'Slot Confirmed!', chats: [{ t: 'in', m: 'Hi! Reply 1 for Morning, 2 for Afternoon' }, { t: 'out', m: '1' }, { t: 'in', m: 'Your slot is booked: Tomorrow 10 AM. See you!' }], left: ['✓ Book 24/7 via WhatsApp', '⏱ 5+ hrs/week saved'], right: ['Sell for ₹3,500–₹7,000', '🏥 Clinics & salons'] },
+  { icon: <BotIcon size={16} />, name: 'Support Bot', notif: 'Query Resolved!', chats: [{ t: 'out', m: 'My order is wrong!' }, { t: 'in', m: 'Sorry about that! Can you share your order ID?' }, { t: 'out', m: '#5678' }, { t: 'in', m: 'Got it, raising a replacement request now.' }], left: ['✓ FAQs answered instantly', '⏱ 6+ hrs/week saved'], right: ['Sell for ₹4,000–₹10,000', '🏢 Any business'] },
+  { icon: <TrendingUpIcon size={16} />, name: 'Sales Bot', notif: 'New Lead Qualified!', chats: [{ t: 'in', m: 'Hi! Interested in our product? Reply YES to see pricing' }, { t: 'out', m: 'YES' }, { t: 'in', m: 'Great! Our starter plan is ₹999/mo. Want a demo?' }], left: ['✓ Leads auto-qualified', '⏱ 4+ hrs/week saved'], right: ['Sell for ₹3,000–₹8,000', '📈 Sales teams'] },
+  { icon: <BarChartIcon size={16} />, name: 'Follow-up Bot', notif: 'Follow-up Sent!', chats: [{ t: 'in', m: 'Hi Rajesh! You visited our site yesterday. Any questions?' }, { t: 'out', m: "Yes! What's your turnaround time?" }, { t: 'in', m: '2–3 business days. Want to place an order?' }], left: ['✓ Cold leads re-engaged', '⏱ 4+ hrs/week saved'], right: ['Sell for ₹2,500–₹5,000', '🎯 All industries'] },
+  { icon: <MegaphoneIcon size={16} />, name: 'Campaign Bot', notif: 'Campaign Delivered!', chats: [{ t: 'in', m: 'FLASH SALE! 30% off today only. Use code FORGE30' }, { t: 'in', m: 'Tap to shop: forgemind.in/shop' }, { t: 'out', m: 'Just placed my order!' }], left: ['✓ Reach 1000s instantly', '⏱ 8+ hrs/week saved'], right: ['Sell for ₹3,000–₹7,000', '🛍️ Retail & brands'] },
+  { icon: <TagIcon size={16} />, name: 'Lead Bot', notif: '12 Leads Captured!', chats: [{ t: 'in', m: 'Hi! Saw your ad on Instagram. What does your service include?' }, { t: 'in', m: 'Check our brochure [link]' }, { t: 'out', m: 'Wow! How do I sign up?' }], left: ['✓ Leads from IG & FB', '⏱ 6+ hrs/week saved'], right: ['Sell for ₹3,000–₹8,000', '🏢 Agencies & freelancers'] },
+  { icon: <MessageCircleIcon size={16} />, name: 'AI Chat Bot', notif: 'AI Reply Sent!', chats: [{ t: 'out', m: 'Do you deliver to Chennai?' }, { t: 'in', m: 'Yes we do! Delivery takes 3–5 days.' }, { t: 'out', m: 'What about Coimbatore?' }, { t: 'in', m: 'Same! 3–5 days. Want to place an order?' }], left: ['✓ 80% automated replies', '⏱ 7+ hrs/week saved'], right: ['Sell for ₹5,000–₹12,000', '🤖 Any business'] },
 ]
 
 const items = [
@@ -172,7 +172,45 @@ export default function WhatsAppCarousel({ sectionRef }) {
           alignItems: 'flex-start',
           marginTop: 40
         }}>
-          <PhoneMockup data={carouselData[activeIdx]} isMobile={isMobile} />
+          {/* Phone + floating badges wrapper */}
+          <div style={{ position: 'relative', padding: isMobile ? 0 : '0 60px' }}>
+            <PhoneMockup data={carouselData[activeIdx]} isMobile={isMobile} />
+
+            {/* Floating badges — desktop only */}
+            {!isMobile && (
+              <>
+                {/* Left side badges */}
+                <div style={{ position: 'absolute', left: 0, top: '25%', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {carouselData[activeIdx].left.map((txt, i) => (
+                    <div key={i} style={{
+                      background: i === 1 ? 'rgba(250,204,21,0.12)' : 'rgba(37,211,102,0.12)',
+                      border: `1px solid ${i === 1 ? 'rgba(250,204,21,0.3)' : 'rgba(37,211,102,0.3)'}`,
+                      color: i === 1 ? '#fcd34d' : 'var(--wa)',
+                      borderRadius: 100, padding: '6px 12px',
+                      fontSize: 11, fontWeight: 600, whiteSpace: 'nowrap',
+                      animation: `floatBadge ${2.8 + i * 0.4}s ease-in-out infinite`,
+                      boxShadow: i === 1 ? '0 4px 16px rgba(250,204,21,0.15)' : '0 4px 16px rgba(37,211,102,0.15)',
+                    }}>{txt}</div>
+                  ))}
+                </div>
+
+                {/* Right side badges */}
+                <div style={{ position: 'absolute', right: 0, top: '40%', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {carouselData[activeIdx].right.map((txt, i) => (
+                    <div key={i} style={{
+                      background: i === 0 ? 'rgba(37,211,102,0.12)' : 'rgba(255,255,255,0.05)',
+                      border: `1px solid ${i === 0 ? 'rgba(37,211,102,0.3)' : 'rgba(255,255,255,0.12)'}`,
+                      color: i === 0 ? 'var(--wa)' : 'var(--t2)',
+                      borderRadius: 100, padding: '6px 12px',
+                      fontSize: 11, fontWeight: 600, whiteSpace: 'nowrap',
+                      animation: `floatBadge ${3.2 + i * 0.5}s ease-in-out infinite`,
+                      boxShadow: i === 0 ? '0 4px 16px rgba(37,211,102,0.15)' : 'none',
+                    }}>{txt}</div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
 
           {/* Desktop: vertical list */}
           {!isMobile && (
@@ -261,64 +299,6 @@ export default function WhatsAppCarousel({ sectionRef }) {
               cursor: 'pointer', transition: 'all .2s'
             }}/>
           ))}
-        </div>
-
-        {/* What you can build & sell — green badge style */}
-        <div style={{ marginTop: isMobile ? 40 : 56 }}>
-          <div style={{ textAlign: 'center', fontSize: 11, fontWeight: 600, color: 'var(--t3)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 20, fontFamily: "'JetBrains Mono',monospace" }}>
-            Build these & sell to businesses
-          </div>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)',
-            gap: isMobile ? 10 : 14,
-          }}>
-            {[
-              { icon: <TagIcon size={13}/>, name: 'Lead Scraper Bot', desc: 'Auto-capture & qualify leads from Instagram and Facebook', price: '₹3,000 – ₹8,000' },
-              { icon: <CalendarIcon size={13}/>, name: 'Appointment Bot', desc: 'Book, reschedule & remind clients through WhatsApp', price: '₹3,500 – ₹7,000' },
-              { icon: <ShoppingCartIcon size={13}/>, name: 'Order Update Bot', desc: 'Send auto order confirmations, shipping & delivery alerts', price: '₹2,500 – ₹6,000' },
-              { icon: <BotIcon size={13}/>, name: 'Customer Support Bot', desc: 'Handle FAQs and complaints 24/7 without human effort', price: '₹4,000 – ₹10,000' },
-            ].map((b, i) => (
-              <div key={i} style={{
-                background: 'rgba(37,211,102,0.06)',
-                border: '1px solid rgba(37,211,102,0.2)',
-                borderRadius: 14,
-                padding: isMobile ? '14px 12px' : '18px 16px',
-                position: 'relative',
-                overflow: 'hidden',
-              }}>
-                {/* Glow */}
-                <div style={{ position: 'absolute', top: -30, right: -30, width: 80, height: 80, borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,211,102,0.15), transparent 70%)', pointerEvents: 'none' }} />
-
-                {/* Badge-style header */}
-                <div style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 5,
-                  background: 'var(--wa)', color: '#fff',
-                  borderRadius: 100, padding: '4px 10px',
-                  fontSize: 10, fontWeight: 700,
-                  marginBottom: 10,
-                  boxShadow: '0 3px 12px rgba(37,211,102,0.35)',
-                }}>
-                  {b.icon}
-                  {b.name}
-                </div>
-
-                <div style={{ fontSize: isMobile ? 11 : 12, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 10 }}>
-                  {b.desc}
-                </div>
-
-                {/* Sell price */}
-                <div style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 5,
-                  fontSize: 11, fontWeight: 700, color: 'var(--wa)',
-                  fontFamily: "'JetBrains Mono',monospace",
-                }}>
-                  <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                  Sell for {b.price}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
       </div>
