@@ -28,7 +28,7 @@ export default function About() {
     <section className="rv" style={{ padding: isMobile ? '52px 0' : '80px 0', borderBottom: '1px solid var(--bdr)', background: 'var(--bg2)' }}>
       <div className="ctr">
         <div style={{ textAlign: 'center', marginBottom: isMobile ? 32 : 48 }}>
-          <div className="slbl">About the Combo</div>
+          <div className="slbl">Key Takeaways</div>
           <div className="stl" style={{ marginBottom: 12 }}>Two courses. One complete skill set.</div>
           <div style={{ fontSize: isMobile ? 14 : 16, color: 'var(--t2)', lineHeight: 1.7, maxWidth: 480, margin: '0 auto', padding: isMobile ? '0 4px' : 0 }}>
             Build the two skills every modern business needs
