@@ -121,6 +121,7 @@ function PhoneMockup({ data, isMobile }) {
 export default function WhatsAppCarousel({ sectionRef }) {
   const [activeIdx, setActiveIdx] = useState(0)
   const intervalRef = useRef(null)
+  const chipStripRef = useRef(null)
   const isMobile = useIsMobile()
 
   const startAuto = useCallback((idx) => {
@@ -134,6 +135,15 @@ export default function WhatsAppCarousel({ sectionRef }) {
     startAuto(0)
     return () => clearInterval(intervalRef.current)
   }, [])
+
+  useEffect(() => {
+    const strip = chipStripRef.current
+    const chip = strip?.children[activeIdx]
+    if (!strip || !chip) return
+    const stripLeft = strip.getBoundingClientRect().left
+    const chipLeft = chip.getBoundingClientRect().left
+    strip.scrollBy({ left: chipLeft - stripLeft - strip.clientWidth / 2 + chip.clientWidth / 2, behavior: 'smooth' })
+  }, [activeIdx])
 
   const handleSelect = (idx) => {
     setActiveIdx(idx)
@@ -262,9 +272,9 @@ export default function WhatsAppCarousel({ sectionRef }) {
 
         {/* Mobile: horizontal scrollable chip strip */}
         {isMobile && (
-          <div style={{
+          <div ref={chipStripRef} style={{
             display: 'flex', gap: 8, overflowX: 'auto', padding: '4px 0 8px',
-            scrollSnapType: 'x mandatory', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch',
             marginTop: 4
           }}>
             {items.map((item, i) => (
