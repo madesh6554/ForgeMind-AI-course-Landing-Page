@@ -137,7 +137,8 @@ export default function ToolsStrip() {
       {/* Scrolling track — full width, mask fades at screen edges */}
       <div
         style={{
-          overflow: 'hidden',
+          overflowX: 'clip',
+          overflowY: 'visible',
           WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
           maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
         }}
