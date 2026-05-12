@@ -63,8 +63,13 @@ export default function CoursePreview() {
   }, [paused])
 
   useEffect(() => {
+    const track = document.getElementById('preview-track')
     const card = document.getElementById(`preview-card-${active}`)
-    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+    if (track && card) {
+      const trackLeft = track.getBoundingClientRect().left
+      const cardLeft = card.getBoundingClientRect().left
+      track.scrollBy({ left: cardLeft - trackLeft, behavior: 'smooth' })
+    }
   }, [active])
 
   function pick(i) {

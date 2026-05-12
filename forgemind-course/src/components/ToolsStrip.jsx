@@ -134,13 +134,12 @@ export default function ToolsStrip() {
         Tools you'll learn in this course
       </div>
 
-      {/* Scrolling track — maskImage fades edges at pixel level */}
+      {/* Scrolling track — full width, mask fades at screen edges */}
       <div
         style={{
-          maxWidth: 1100, margin: '0 auto', padding: '0 24px',
           overflow: 'hidden',
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, transparent 15%, black 25%, black 75%, transparent 85%, transparent 100%)',
-          maskImage: 'linear-gradient(to right, transparent 0%, transparent 15%, black 25%, black 75%, transparent 85%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
         }}
         onMouseEnter={pause}
         onMouseLeave={resume}

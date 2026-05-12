@@ -19,6 +19,7 @@ import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
 import ToolsStrip from './components/ToolsStrip'
 import MobileEnrollBar from './components/MobileEnrollBar'
+import StickyEnrollCard from './components/StickyEnrollCard'
 
 function useReveal() {
   useEffect(() => {
@@ -90,6 +91,7 @@ export default function App() {
       </a>
 
       <MobileEnrollBar />
+      {!isMobile && <StickyEnrollCard />}
     </div>
   )
 }

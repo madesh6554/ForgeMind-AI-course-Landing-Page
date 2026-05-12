@@ -117,7 +117,7 @@ export default function Modules() {
 
         <CoursePreview />
 
-        <div style={{ maxWidth: 720, margin: '0 auto', position: 'relative' }}>
+        <div style={{ position: 'relative' }}>
           <div style={{
             position: 'absolute',
             left: isMobile ? 19 : 23,
