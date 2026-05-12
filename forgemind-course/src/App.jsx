@@ -7,7 +7,6 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import WhatsAppCarousel from './components/WhatsAppCarousel'
 import About from './components/About'
-import BuildWithUs from './components/BuildWithUs'
 import WhatYouGet from './components/WhatYouGet'
 import Modules from './components/Modules'
 import Certificate from './components/Certificate'
@@ -61,7 +60,7 @@ export default function App() {
       <WhoIsItFor />            {/* 4. Is this for me? — qualify early */}
       <About />                 {/* 5. What are the courses */}
       <WhatYouGet />            {/* 6. What's included */}
-      <BuildWithUs />           {/* 7. Bonus projects — sweetener */}
+                                {/* BuildWithUs removed — use cases moved to WhatsAppCarousel */}
       <Modules />               {/* 8. Full curriculum — for detail-seekers */}
       <Certificate />           {/* 9. Credibility */}
       <Reviews />               {/* 10. Social proof */}

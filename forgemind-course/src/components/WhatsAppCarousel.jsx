@@ -262,6 +262,65 @@ export default function WhatsAppCarousel({ sectionRef }) {
             }}/>
           ))}
         </div>
+
+        {/* What you can build & sell — green badge style */}
+        <div style={{ marginTop: isMobile ? 40 : 56 }}>
+          <div style={{ textAlign: 'center', fontSize: 11, fontWeight: 600, color: 'var(--t3)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 20, fontFamily: "'JetBrains Mono',monospace" }}>
+            Build these & sell to businesses
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)',
+            gap: isMobile ? 10 : 14,
+          }}>
+            {[
+              { icon: <TagIcon size={13}/>, name: 'Lead Scraper Bot', desc: 'Auto-capture & qualify leads from Instagram and Facebook', price: '₹3,000 – ₹8,000' },
+              { icon: <CalendarIcon size={13}/>, name: 'Appointment Bot', desc: 'Book, reschedule & remind clients through WhatsApp', price: '₹3,500 – ₹7,000' },
+              { icon: <ShoppingCartIcon size={13}/>, name: 'Order Update Bot', desc: 'Send auto order confirmations, shipping & delivery alerts', price: '₹2,500 – ₹6,000' },
+              { icon: <BotIcon size={13}/>, name: 'Customer Support Bot', desc: 'Handle FAQs and complaints 24/7 without human effort', price: '₹4,000 – ₹10,000' },
+            ].map((b, i) => (
+              <div key={i} style={{
+                background: 'rgba(37,211,102,0.06)',
+                border: '1px solid rgba(37,211,102,0.2)',
+                borderRadius: 14,
+                padding: isMobile ? '14px 12px' : '18px 16px',
+                position: 'relative',
+                overflow: 'hidden',
+              }}>
+                {/* Glow */}
+                <div style={{ position: 'absolute', top: -30, right: -30, width: 80, height: 80, borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,211,102,0.15), transparent 70%)', pointerEvents: 'none' }} />
+
+                {/* Badge-style header */}
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 5,
+                  background: 'var(--wa)', color: '#fff',
+                  borderRadius: 100, padding: '4px 10px',
+                  fontSize: 10, fontWeight: 700,
+                  marginBottom: 10,
+                  boxShadow: '0 3px 12px rgba(37,211,102,0.35)',
+                }}>
+                  {b.icon}
+                  {b.name}
+                </div>
+
+                <div style={{ fontSize: isMobile ? 11 : 12, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 10 }}>
+                  {b.desc}
+                </div>
+
+                {/* Sell price */}
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 5,
+                  fontSize: 11, fontWeight: 700, color: 'var(--wa)',
+                  fontFamily: "'JetBrains Mono',monospace",
+                }}>
+                  <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  Sell for {b.price}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   )
