@@ -110,7 +110,7 @@ export default function CoursePreview() {
               id={`preview-card-${i}`}
               onClick={() => { pick(i); setLightbox(s.full) }}
               style={{
-                flex: '0 0 360px', scrollSnapAlign: 'start', borderRadius: 10,
+                flex: '0 0 min(360px, 80vw)', scrollSnapAlign: 'start', borderRadius: 10,
                 overflow: 'hidden', cursor: 'pointer', transition: 'border-color .2s, transform .3s',
                 border: `2px solid ${active === i ? 'var(--red)' : 'var(--bdr)'}`,
                 background: 'var(--bg3)',
