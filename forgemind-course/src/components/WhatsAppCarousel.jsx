@@ -1,18 +1,18 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useIsMobile } from '../hooks/useIsMobile'
-import { ShoppingCartIcon, CalendarIcon, BotIcon, TrendingUpIcon, BarChartIcon, MegaphoneIcon, TagIcon, MessageCircleIcon } from './Icons'
+import { ShoppingCartIcon, CalendarIcon, BotIcon, TrendingUpIcon, BarChartIcon, MegaphoneIcon, TagIcon, MessageCircleIcon, CheckIcon, ClockIcon, BuildingIcon, UsersIcon, CreditCardIcon, TargetIcon } from './Icons'
 
 const DURATION = 4000
 
 const carouselData = [
-  { icon: <ShoppingCartIcon size={16} />, name: 'Store Bot', notif: 'New Order Placed!', chats: [{ t: 'in', m: 'Hi! Your order #1234 has been confirmed' }, { t: 'out', m: 'Great! When will it arrive?' }, { t: 'in', m: 'Expected delivery: Tomorrow, 2–4 PM' }], left: ['✓ Auto confirmations', '⏱ 3+ hrs/week saved'], right: ['Sell for ₹2,500–₹6,000', '🏪 E-commerce & retail'] },
-  { icon: <CalendarIcon size={16} />, name: 'Booking Bot', notif: 'Slot Confirmed!', chats: [{ t: 'in', m: 'Hi! Reply 1 for Morning, 2 for Afternoon' }, { t: 'out', m: '1' }, { t: 'in', m: 'Your slot is booked: Tomorrow 10 AM. See you!' }], left: ['✓ Book 24/7 via WhatsApp', '⏱ 5+ hrs/week saved'], right: ['Sell for ₹3,500–₹7,000', '🏥 Clinics & salons'] },
-  { icon: <BotIcon size={16} />, name: 'Support Bot', notif: 'Query Resolved!', chats: [{ t: 'out', m: 'My order is wrong!' }, { t: 'in', m: 'Sorry about that! Can you share your order ID?' }, { t: 'out', m: '#5678' }, { t: 'in', m: 'Got it, raising a replacement request now.' }], left: ['✓ FAQs answered instantly', '⏱ 6+ hrs/week saved'], right: ['Sell for ₹4,000–₹10,000', '🏢 Any business'] },
-  { icon: <TrendingUpIcon size={16} />, name: 'Sales Bot', notif: 'New Lead Qualified!', chats: [{ t: 'in', m: 'Hi! Interested in our product? Reply YES to see pricing' }, { t: 'out', m: 'YES' }, { t: 'in', m: 'Great! Our starter plan is ₹999/mo. Want a demo?' }], left: ['✓ Leads auto-qualified', '⏱ 4+ hrs/week saved'], right: ['Sell for ₹3,000–₹8,000', '📈 Sales teams'] },
-  { icon: <BarChartIcon size={16} />, name: 'Follow-up Bot', notif: 'Follow-up Sent!', chats: [{ t: 'in', m: 'Hi Rajesh! You visited our site yesterday. Any questions?' }, { t: 'out', m: "Yes! What's your turnaround time?" }, { t: 'in', m: '2–3 business days. Want to place an order?' }], left: ['✓ Cold leads re-engaged', '⏱ 4+ hrs/week saved'], right: ['Sell for ₹2,500–₹5,000', '🎯 All industries'] },
-  { icon: <MegaphoneIcon size={16} />, name: 'Campaign Bot', notif: 'Campaign Delivered!', chats: [{ t: 'in', m: 'FLASH SALE! 30% off today only. Use code FORGE30' }, { t: 'in', m: 'Tap to shop: forgemind.in/shop' }, { t: 'out', m: 'Just placed my order!' }], left: ['✓ Reach 1000s instantly', '⏱ 8+ hrs/week saved'], right: ['Sell for ₹3,000–₹7,000', '🛍️ Retail & brands'] },
-  { icon: <TagIcon size={16} />, name: 'Lead Bot', notif: '12 Leads Captured!', chats: [{ t: 'in', m: 'Hi! Saw your ad on Instagram. What does your service include?' }, { t: 'in', m: 'Check our brochure [link]' }, { t: 'out', m: 'Wow! How do I sign up?' }], left: ['✓ Leads from IG & FB', '⏱ 6+ hrs/week saved'], right: ['Sell for ₹3,000–₹8,000', '🏢 Agencies & freelancers'] },
-  { icon: <MessageCircleIcon size={16} />, name: 'AI Chat Bot', notif: 'AI Reply Sent!', chats: [{ t: 'out', m: 'Do you deliver to Chennai?' }, { t: 'in', m: 'Yes we do! Delivery takes 3–5 days.' }, { t: 'out', m: 'What about Coimbatore?' }, { t: 'in', m: 'Same! 3–5 days. Want to place an order?' }], left: ['✓ 80% automated replies', '⏱ 7+ hrs/week saved'], right: ['Sell for ₹5,000–₹12,000', '🤖 Any business'] },
+  { icon: <ShoppingCartIcon size={16} />, name: 'Store Bot', notif: 'New Order Placed!', chats: [{ t: 'in', m: 'Hi! Your order #1234 has been confirmed' }, { t: 'out', m: 'Great! When will it arrive?' }, { t: 'in', m: 'Expected delivery: Tomorrow, 2–4 PM' }], left: [{ icon: <CheckIcon size={11} />, text: 'Auto confirmations' }, { icon: <ClockIcon size={11} />, text: '3+ hrs/week saved' }], right: [{ icon: <CreditCardIcon size={11} />, text: 'Sell ₹2,500–₹6,000' }, { icon: <ShoppingCartIcon size={11} />, text: 'E-commerce & retail' }] },
+  { icon: <CalendarIcon size={16} />, name: 'Booking Bot', notif: 'Slot Confirmed!', chats: [{ t: 'in', m: 'Hi! Reply 1 for Morning, 2 for Afternoon' }, { t: 'out', m: '1' }, { t: 'in', m: 'Your slot is booked: Tomorrow 10 AM. See you!' }], left: [{ icon: <CheckIcon size={11} />, text: 'Book 24/7 via WhatsApp' }, { icon: <ClockIcon size={11} />, text: '5+ hrs/week saved' }], right: [{ icon: <CreditCardIcon size={11} />, text: 'Sell ₹3,500–₹7,000' }, { icon: <BuildingIcon size={11} />, text: 'Clinics & salons' }] },
+  { icon: <BotIcon size={16} />, name: 'Support Bot', notif: 'Query Resolved!', chats: [{ t: 'out', m: 'My order is wrong!' }, { t: 'in', m: 'Sorry about that! Can you share your order ID?' }, { t: 'out', m: '#5678' }, { t: 'in', m: 'Got it, raising a replacement request now.' }], left: [{ icon: <CheckIcon size={11} />, text: 'FAQs answered instantly' }, { icon: <ClockIcon size={11} />, text: '6+ hrs/week saved' }], right: [{ icon: <CreditCardIcon size={11} />, text: 'Sell ₹4,000–₹10,000' }, { icon: <BuildingIcon size={11} />, text: 'Any business' }] },
+  { icon: <TrendingUpIcon size={16} />, name: 'Sales Bot', notif: 'New Lead Qualified!', chats: [{ t: 'in', m: 'Hi! Interested in our product? Reply YES to see pricing' }, { t: 'out', m: 'YES' }, { t: 'in', m: 'Great! Our starter plan is ₹999/mo. Want a demo?' }], left: [{ icon: <CheckIcon size={11} />, text: 'Leads auto-qualified' }, { icon: <ClockIcon size={11} />, text: '4+ hrs/week saved' }], right: [{ icon: <CreditCardIcon size={11} />, text: 'Sell ₹3,000–₹8,000' }, { icon: <TrendingUpIcon size={11} />, text: 'Sales teams' }] },
+  { icon: <BarChartIcon size={16} />, name: 'Follow-up Bot', notif: 'Follow-up Sent!', chats: [{ t: 'in', m: 'Hi Rajesh! You visited our site yesterday. Any questions?' }, { t: 'out', m: "Yes! What's your turnaround time?" }, { t: 'in', m: '2–3 business days. Want to place an order?' }], left: [{ icon: <CheckIcon size={11} />, text: 'Cold leads re-engaged' }, { icon: <ClockIcon size={11} />, text: '4+ hrs/week saved' }], right: [{ icon: <CreditCardIcon size={11} />, text: 'Sell ₹2,500–₹5,000' }, { icon: <TargetIcon size={11} />, text: 'All industries' }] },
+  { icon: <MegaphoneIcon size={16} />, name: 'Campaign Bot', notif: 'Campaign Delivered!', chats: [{ t: 'in', m: 'FLASH SALE! 30% off today only. Use code FORGE30' }, { t: 'in', m: 'Tap to shop: forgemind.in/shop' }, { t: 'out', m: 'Just placed my order!' }], left: [{ icon: <CheckIcon size={11} />, text: 'Reach 1000s instantly' }, { icon: <ClockIcon size={11} />, text: '8+ hrs/week saved' }], right: [{ icon: <CreditCardIcon size={11} />, text: 'Sell ₹3,000–₹7,000' }, { icon: <TagIcon size={11} />, text: 'Retail & brands' }] },
+  { icon: <TagIcon size={16} />, name: 'Lead Bot', notif: '12 Leads Captured!', chats: [{ t: 'in', m: 'Hi! Saw your ad on Instagram. What does your service include?' }, { t: 'in', m: 'Check our brochure [link]' }, { t: 'out', m: 'Wow! How do I sign up?' }], left: [{ icon: <CheckIcon size={11} />, text: 'Leads from IG & FB' }, { icon: <ClockIcon size={11} />, text: '6+ hrs/week saved' }], right: [{ icon: <CreditCardIcon size={11} />, text: 'Sell ₹3,000–₹8,000' }, { icon: <UsersIcon size={11} />, text: 'Agencies & freelancers' }] },
+  { icon: <MessageCircleIcon size={16} />, name: 'AI Chat Bot', notif: 'AI Reply Sent!', chats: [{ t: 'out', m: 'Do you deliver to Chennai?' }, { t: 'in', m: 'Yes we do! Delivery takes 3–5 days.' }, { t: 'out', m: 'What about Coimbatore?' }, { t: 'in', m: 'Same! 3–5 days. Want to place an order?' }], left: [{ icon: <CheckIcon size={11} />, text: '80% automated replies' }, { icon: <ClockIcon size={11} />, text: '7+ hrs/week saved' }], right: [{ icon: <CreditCardIcon size={11} />, text: 'Sell ₹5,000–₹12,000' }, { icon: <BotIcon size={11} />, text: 'Any business' }] },
 ]
 
 const items = [
@@ -188,7 +188,7 @@ export default function WhatsAppCarousel({ sectionRef }) {
 
             {/* Left side badges */}
             <div key={`left-${activeIdx}`} style={{ position: 'absolute', left: isMobile ? -4 : 0, top: '25%', display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {carouselData[activeIdx].left.map((txt, i) => (
+              {carouselData[activeIdx].left.map((badge, i) => (
                 <div key={i} style={{
                   background: i === 1 ? 'rgba(250,204,21,0.12)' : 'rgba(37,211,102,0.12)',
                   border: `1px solid ${i === 1 ? 'rgba(250,204,21,0.3)' : 'rgba(37,211,102,0.3)'}`,
@@ -198,15 +198,16 @@ export default function WhatsAppCarousel({ sectionRef }) {
                   fontSize: isMobile ? 9 : 11, fontWeight: 600,
                   whiteSpace: isMobile ? 'normal' : 'nowrap',
                   maxWidth: isMobile ? 72 : 'none', lineHeight: 1.3,
+                  display: 'flex', alignItems: 'center', gap: 4,
                   animation: `badgeEnter 0.4s ease ${i * 0.28}s both, floatBadge ${5 + i * 0.8}s ease-in-out ${i * 0.28 + 0.4}s infinite`,
                   boxShadow: i === 1 ? '0 4px 16px rgba(250,204,21,0.15)' : '0 4px 16px rgba(37,211,102,0.15)',
-                }}>{txt}</div>
+                }}>{badge.icon}{badge.text}</div>
               ))}
             </div>
 
             {/* Right side badges */}
             <div key={`right-${activeIdx}`} style={{ position: 'absolute', right: isMobile ? -4 : 0, top: '40%', display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {carouselData[activeIdx].right.map((txt, i) => (
+              {carouselData[activeIdx].right.map((badge, i) => (
                 <div key={i} style={{
                   background: i === 0 ? 'rgba(37,211,102,0.12)' : 'rgba(255,255,255,0.05)',
                   border: `1px solid ${i === 0 ? 'rgba(37,211,102,0.3)' : 'rgba(255,255,255,0.12)'}`,
@@ -216,10 +217,10 @@ export default function WhatsAppCarousel({ sectionRef }) {
                   fontSize: isMobile ? 9 : 11, fontWeight: 600,
                   whiteSpace: isMobile ? 'normal' : 'nowrap',
                   maxWidth: isMobile ? 72 : 'none', lineHeight: 1.3,
-                  textAlign: isMobile ? 'right' : 'left',
+                  display: 'flex', alignItems: 'center', gap: 4,
                   animation: `badgeEnter 0.4s ease ${0.14 + i * 0.28}s both, floatBadge ${5.5 + i * 0.8}s ease-in-out ${0.14 + i * 0.28 + 0.4}s infinite`,
                   boxShadow: i === 0 ? '0 4px 16px rgba(37,211,102,0.15)' : 'none',
-                }}>{txt}</div>
+                }}>{badge.icon}{badge.text}</div>
               ))}
             </div>
           </div>

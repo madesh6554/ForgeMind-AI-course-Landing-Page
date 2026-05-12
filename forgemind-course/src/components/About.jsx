@@ -2,14 +2,7 @@ import { useIsMobile } from '../hooks/useIsMobile'
 
 const courses = [
   {
-    num: '1', title: 'N8N Starter Course', sub: 'Part 1 · 10 Modules · Workflow Foundation',
-    color: 'var(--red)',
-    items: [
-      'Understand n8n basics — nodes, triggers, flows, errors, credentials',
-      'Connect Google Sheets, Gmail, webhooks, CRMs and APIs',
-      'Build automations for reports, reminders, and internal workflows',
-      'Think in workflow logic — design and debug with confidence',
-    ],
+    num: '1', title: 'N8N Starter Course', color: 'var(--red)',
     takeaways: [
       'End-to-end automation strategy design',
       'API interactions & authentication',
@@ -18,15 +11,7 @@ const courses = [
     ],
   },
   {
-    num: '2', title: 'WhatsApp AI Business Automation', sub: 'Part 2 · 8 Modules · Production-Ready Bots',
-    color: 'var(--wa)',
-    items: [
-      'Connect WhatsApp Cloud API with n8n step by step',
-      'Build menu-based and AI-powered WhatsApp bots',
-      'Work with templates, dynamic data, and response flows',
-      'Automate enquiries, follow-ups, reminders, and order updates',
-      'Design flows that are 80% structured + 20% AI-assisted',
-    ],
+    num: '2', title: 'WhatsApp AI Business Automation', color: 'var(--wa)',
     takeaways: [
       'WhatsApp API & n8n production integration',
       'Template management & bulk marketing',
@@ -68,33 +53,16 @@ export default function About() {
               }}>{c.num}</div>
 
               {/* Header */}
-              <h3 style={{ fontSize: isMobile ? 16 : 18, fontWeight: 700, marginBottom: 4, paddingRight: 32 }}>{c.title}</h3>
-              <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 14 }}>{c.sub}</div>
+              <h3 style={{ fontSize: isMobile ? 16 : 18, fontWeight: 700, marginBottom: 20, paddingRight: 32 }}>{c.title}</h3>
 
-              {/* Course content */}
-              <ul style={{ display: 'flex', flexDirection: 'column', gap: 8, listStyle: 'none', marginBottom: 20 }}>
-                {c.items.map((item, i) => (
-                  <li key={i} style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                    <span style={{ width: 5, height: 5, background: c.color, borderRadius: '50%', flexShrink: 0, marginTop: 7 }}/>
+              {/* Takeaways */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {c.takeaways.map((item, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 13, color: 'var(--t2)' }}>
+                    <span style={{ color: c.color, flexShrink: 0, fontWeight: 700, marginTop: 1 }}>→</span>
                     {item}
-                  </li>
+                  </div>
                 ))}
-              </ul>
-
-              {/* Divider + takeaways */}
-              <div style={{ borderTop: '1px solid var(--bdr)', paddingTop: 16 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: c.color, flexShrink: 0 }}/>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--t)' }}>{c.num === '1' ? 'From n8n Starter' : 'From WhatsApp Automation'}</div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  {c.takeaways.map((item, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 13, color: 'var(--t2)' }}>
-                      <span style={{ color: c.color, flexShrink: 0, fontWeight: 700, marginTop: 1 }}>→</span>
-                      {item}
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           ))}

@@ -154,6 +154,18 @@ export const LockIcon = ({ size = 16 }) => (
   </svg>
 )
 
+export const CheckIcon = ({ size = 12 }) => (
+  <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+)
+
+export const TargetIcon = ({ size = 12 }) => (
+  <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+  </svg>
+)
+
 export const UsersIcon = ({ size = 28 }) => (
   <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
     <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>

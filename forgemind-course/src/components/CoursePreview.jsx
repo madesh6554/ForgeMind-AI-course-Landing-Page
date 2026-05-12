@@ -100,7 +100,7 @@ export default function CoursePreview() {
           id="preview-track"
           style={{
             display: 'flex', gap: 14, overflowX: 'auto', scrollSnapType: 'x mandatory',
-            WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', paddingBottom: 4,
+            WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', paddingBottom: 4, paddingTop: 6,
             scrollBehavior: 'smooth',
           }}
         >
