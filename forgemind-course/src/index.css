@@ -70,7 +70,7 @@ body::-webkit-scrollbar { display: none; }
 .fu2 { animation-delay: .2s; }
 .fu3 { animation-delay: .3s; }
 
-@keyframes floatBadge  { 0%,100% { transform: translate(0, 0); } 33% { transform: translate(-3px, -6px); } 66% { transform: translate(2px, -3px); } }
+@keyframes floatBadge  { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-7px); } }
 @keyframes badgeEnter  { from { opacity: 0; transform: translateY(10px) scale(0.88); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes typingDot   { 0%,60%,100% { transform: translateY(0); opacity: .4; } 30% { transform: translateY(-4px); opacity: 1; } }
 @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
