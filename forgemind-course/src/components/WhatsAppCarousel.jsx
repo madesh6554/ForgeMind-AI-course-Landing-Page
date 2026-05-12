@@ -176,6 +176,22 @@ export default function WhatsAppCarousel({ sectionRef }) {
           <div style={{ position: 'relative', padding: isMobile ? 0 : '0 60px' }}>
             <PhoneMockup data={carouselData[activeIdx]} isMobile={isMobile} />
 
+            {/* Floating badges — mobile: 2x2 grid below phone */}
+            {isMobile && (
+              <div key={`mob-${activeIdx}`} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 16 }}>
+                {[...carouselData[activeIdx].left, ...carouselData[activeIdx].right].map((txt, i) => (
+                  <div key={i} style={{
+                    background: i === 1 ? 'rgba(250,204,21,0.12)' : i === 2 ? 'rgba(37,211,102,0.12)' : i === 3 ? 'rgba(255,255,255,0.05)' : 'rgba(37,211,102,0.12)',
+                    border: `1px solid ${i === 1 ? 'rgba(250,204,21,0.3)' : i === 3 ? 'rgba(255,255,255,0.12)' : 'rgba(37,211,102,0.3)'}`,
+                    color: i === 1 ? '#fcd34d' : i === 3 ? 'var(--t2)' : 'var(--wa)',
+                    borderRadius: 100, padding: '7px 12px',
+                    fontSize: 11, fontWeight: 600, textAlign: 'center',
+                    animation: `badgeEnter 0.4s ease ${i * 0.2}s both`,
+                  }}>{txt}</div>
+                ))}
+              </div>
+            )}
+
             {/* Floating badges — desktop only */}
             {!isMobile && (
               <>
