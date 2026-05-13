@@ -101,7 +101,7 @@ function HeroHeading({ isMobile }) {
       letterSpacing: isMobile ? -1 : -2,
       marginBottom: 18,
     }}>
-      Automate your Business<br />
+      Learn to Automate your Business<br />
       using <em style={{ fontStyle: 'normal', color: 'var(--wa)' }}>WhatsApp</em>{' '}
       and <strong style={{ color: 'var(--red2)', fontWeight: 800 }}>n8n</strong>
     </h1>

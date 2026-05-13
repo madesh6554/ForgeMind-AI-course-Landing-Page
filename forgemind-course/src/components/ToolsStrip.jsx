@@ -15,14 +15,13 @@ const tools = [
   { name: 'Google Docs',     src: '/logos/google-docs.png' },
   { name: 'Shopify',         src: '/logos/Shopify.png' },
   { name: 'Facebook',        src: '/logos/facebook.png' },
-  { name: 'Instagram',       src: '/logos/instagram.png' },
   { name: 'LinkedIn',        src: '/logos/linkedin.png' },
   { name: 'YouTube',         src: '/logos/youtube.png' },
   { name: 'Apify',           src: '/logos/apify-logo.png' },
 ]
 
-/* Double the list — animation moves exactly -50% = one full copy, perfectly seamless */
-const track = [...tools, ...tools]
+/* Triple the list — always have a full copy in view on both sides of the seam */
+const track = [...tools, ...tools, ...tools]
 
 const GAP = 28 /* px — each item reserves this as right padding so -50% is exact */
 
@@ -147,8 +146,9 @@ export default function ToolsStrip() {
               display: 'flex',
               alignItems: 'center',
               width: 'max-content',
-              animation: 'marqueeScroll 28s linear infinite',
+              animation: 'marqueeScroll3 42s linear infinite',
               willChange: 'transform',
+              transform: 'translateZ(0)',
             }}
           >
             {track.map((t, i) => (
