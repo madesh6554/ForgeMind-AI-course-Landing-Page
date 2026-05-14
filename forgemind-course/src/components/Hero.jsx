@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useIsMobile } from '../hooks/useIsMobile'
 import { StarIcon, GlobeIcon } from './Icons'
 
@@ -9,7 +9,6 @@ const PlayIcon = () => (
 )
 
 export default function Hero() {
-  const [videoLoaded, setVideoLoaded] = useState(false)
   const isMobile = useIsMobile()
 
   return (
@@ -42,7 +41,7 @@ export default function Hero() {
             </div>
             <HeroHeading isMobile={true} />
             <HeroTagline isMobile={true} />
-            <HeroVideo isMobile={true} videoLoaded={videoLoaded} setVideoLoaded={setVideoLoaded} />
+            <HeroVideo isMobile={true}  />
             <HeroCTAs isMobile={true} />
             <HeroTags isMobile={true} />
           </div>
@@ -67,7 +66,7 @@ export default function Hero() {
 
             {/* Right: video */}
             <div>
-              <HeroVideo isMobile={false} videoLoaded={videoLoaded} setVideoLoaded={setVideoLoaded} />
+              <HeroVideo isMobile={false}  />
             </div>
           </div>
         )}
@@ -122,48 +121,119 @@ function HeroTagline({ isMobile }) {
   )
 }
 
-function HeroVideo({ isMobile, videoLoaded, setVideoLoaded }) {
+const VIDEO_ID = 'W4SCclQPKvg'
+
+// Load YT IFrame API once, resolve when ready
+let _ytReady = null
+function getYTReady() {
+  if (!_ytReady) {
+    _ytReady = new Promise(resolve => {
+      if (window.YT?.Player) { resolve(); return }
+      const prev = window.onYouTubeIframeAPIReady
+      window.onYouTubeIframeAPIReady = () => { prev?.(); resolve() }
+      const s = document.createElement('script')
+      s.src = 'https://www.youtube.com/iframe_api'
+      document.head.appendChild(s)
+    })
+  }
+  return _ytReady
+}
+
+function HeroVideo({ isMobile }) {
+  const [playing, setPlaying] = useState(false)
+  const divRef  = useRef(null)   // div where YT player replaces the inner div
+  const playerRef = useRef(null)
+  const readyRef  = useRef(false) // true once player is preloaded and ready
+
+  // Preload: inject YT API + create silent player as soon as component mounts
+  useEffect(() => {
+    let mounted = true
+    getYTReady().then(() => {
+      if (!mounted || !divRef.current) return
+      playerRef.current = new window.YT.Player(divRef.current, {
+        videoId: VIDEO_ID,
+        playerVars: {
+          autoplay: 0,        // don't play yet — just preload the player
+          rel: 0,
+          modestbranding: 1,
+          playsinline: 1,
+          controls: 1,
+        },
+        events: {
+          onReady() { readyRef.current = true },
+          onStateChange(e) {
+            if (e.data === window.YT.PlayerState.PLAYING) setPlaying(true)
+          },
+        },
+      })
+    })
+    return () => { mounted = false; playerRef.current?.destroy?.() }
+  }, [])
+
+  function handlePlay() {
+    if (readyRef.current) {
+      // Player already warmed up — instant play, no delay
+      playerRef.current.playVideo()
+    } else {
+      // Fallback: API not ready yet, force play once ready
+      getYTReady().then(() => playerRef.current?.playVideo())
+    }
+  }
+
   return (
     <div className="fu fu3" style={{
       maxWidth: isMobile ? 760 : undefined,
       margin: isMobile ? '0 auto 32px' : '0',
       position: 'relative',
       paddingBottom: '56.25%',
-      background: 'var(--bg3)', borderRadius: isMobile ? 10 : 16,
-      overflow: 'hidden', border: '1px solid var(--bdr)',
-      boxShadow: '0 4px 60px var(--rg)'
+      background: '#0f0f0f',
+      borderRadius: isMobile ? 10 : 16,
+      overflow: 'hidden',
+      border: '1px solid var(--bdr)',
+      boxShadow: '0 4px 60px var(--rg)',
     }}>
-      {videoLoaded ? (
-        <iframe
-          src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&rel=0"
-          frameBorder="0"
-          allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
-          allowFullScreen
-          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-        />
-      ) : (
+
+      {/* YT player lives here, preloaded silently in background */}
+      <div
+        ref={divRef}
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+      />
+
+      {/* Thumbnail overlay — sits on top until video is PLAYING */}
+      {!playing && (
         <div
-          onClick={() => setVideoLoaded(true)}
+          onClick={handlePlay}
           style={{
-            position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-            display: 'flex', flexDirection: 'column', alignItems: 'center',
-            justifyContent: 'center', gap: 14, cursor: 'pointer',
-            background: 'linear-gradient(180deg,rgba(220,38,38,.05),var(--bg3))', transition: '.3s'
+            position: 'absolute', inset: 0, zIndex: 2,
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', gap: 12,
+            cursor: 'pointer',
+            backgroundImage: 'url(/Screenshot%202026-05-14%20132018.png)',
+            backgroundSize: 'cover', backgroundPosition: 'center',
           }}
-          onMouseEnter={e => e.currentTarget.style.background='var(--bg3h)'}
-          onMouseLeave={e => e.currentTarget.style.background='linear-gradient(180deg,rgba(220,38,38,.05),var(--bg3))'}
         >
-          <div style={{
-            width: isMobile ? 52 : 64, height: isMobile ? 52 : 64,
-            background: 'var(--red)', borderRadius: '50%',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 0 40px var(--rgs)'
-          }}>
-            <PlayIcon />
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.38)' }} />
+          <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+            <div
+              style={{
+                width: isMobile ? 58 : 70, height: isMobile ? 58 : 70,
+                background: 'var(--red)', borderRadius: '50%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                boxShadow: '0 0 40px rgba(229,9,20,.7)',
+                transition: 'transform .18s, box-shadow .18s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.boxShadow = '0 0 56px rgba(229,9,20,.95)' }}
+              onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 0 40px rgba(229,9,20,.7)' }}
+            >
+              <PlayIcon />
+            </div>
+            <span style={{ color: '#fff', fontSize: 13, fontWeight: 600, textShadow: '0 1px 6px rgba(0,0,0,.9)', letterSpacing: '.3px' }}>
+              Watch the course intro
+            </span>
           </div>
-          <span style={{ color: 'var(--t3)', fontSize: 13, fontWeight: 500 }}>Watch the course intro</span>
         </div>
       )}
+
     </div>
   )
 }
