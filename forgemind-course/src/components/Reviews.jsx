@@ -2,12 +2,12 @@ import { useRef } from 'react'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 const images = [
-  '/Review%20Images/review1.png',
-  '/Review%20Images/review2.png',
-  '/Review%20Images/review3.png',
-  '/Review%20Images/review4.png',
-  '/Review%20Images/review5.png',
-  '/Review%20Images/review6.png',
+  '/reviews/review1.png',
+  '/reviews/review2.png',
+  '/reviews/review3.png',
+  '/reviews/review4.png',
+  '/reviews/review5.png',
+  '/reviews/review6.png',
 ]
 
 function ReviewCard({ src }) {
@@ -41,8 +41,9 @@ function ReviewCard({ src }) {
         style={{
           display: 'block',
           width: '100%',
-          height: 'auto',
-          marginTop: '-72px',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: '50% 12%',
         }}
       />
     </div>
