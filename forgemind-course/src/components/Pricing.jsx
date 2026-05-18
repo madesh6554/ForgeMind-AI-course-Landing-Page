@@ -49,7 +49,7 @@ function PriceCard({ isMobile }) {
       <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 10 }}>One-time payment</div>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 10, marginBottom: 6 }}>
         <span style={{ fontSize: isMobile ? 40 : 48, fontWeight: 700, fontFamily: "'JetBrains Mono',monospace", letterSpacing: -2 }}>₹4,999</span>
-        <span style={{ fontSize: 18, color: 'var(--t3)', textDecoration: 'line-through' }}>₹7,999</span>
+        <span style={{ fontSize: 18, color: 'var(--t3)', textDecoration: 'line-through' }}>₹5,999</span>
       </div>
       <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 22 }}>Use code FORGE26 for extra ₹150 off</div>
 
@@ -96,8 +96,8 @@ function IndividualCards({ isMobile }) {
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 12 }}>
         {[
-          { name: 'n8n Starter Course', sub: '10 modules · Complete automation foundation', price: '₹1,799', old: '₹2,999', color: 'var(--red)', btn: 'Buy n8n Course →', wa: 'https://wa.me/919342245724?text=Hi!%20I%20want%20to%20buy%20the%20N8N%20Starter%20Course%20%E2%82%B91%2C799' },
-          { name: 'WhatsApp AI Automation', sub: '8 modules · Production-ready WhatsApp bots', price: '₹1,499', old: '₹1,999', color: 'var(--wa)', btn: 'Buy WhatsApp Course →', wa: 'https://wa.me/919342245724?text=Hi!%20I%20want%20to%20buy%20the%20WhatsApp%20AI%20Automation%20Course%20%E2%82%B91%2C499' },
+          { name: 'n8n Starter Course', sub: '10 modules · Complete automation foundation', price: '₹1,999', old: '₹2,999', color: 'var(--red)', btn: 'Buy n8n Course →', wa: 'https://wa.me/919342245724?text=Hi!%20I%20want%20to%20buy%20the%20N8N%20Starter%20Course%20%E2%82%B91%2C999' },
+          { name: 'WhatsApp AI Automation', sub: '8 modules · Production-ready WhatsApp bots', price: '₹3,999', old: '₹4,999', color: 'var(--wa)', btn: 'Buy WhatsApp Course →', wa: 'https://wa.me/919342245724?text=Hi!%20I%20want%20to%20buy%20the%20WhatsApp%20AI%20Automation%20Course%20%E2%82%B93%2C999' },
         ].map((c, i) => (
           <div key={i} style={{
             padding: '16px 18px', background: 'var(--bg3)',
