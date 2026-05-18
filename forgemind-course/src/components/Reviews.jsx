@@ -15,7 +15,8 @@ function ReviewCard({ src }) {
     <div
       style={{
         flexShrink: 0,
-        width: 260,
+        width: 280,
+        height: 480,
         borderRadius: 20,
         overflow: 'hidden',
         border: '1px solid rgba(255,255,255,0.08)',
@@ -37,7 +38,13 @@ function ReviewCard({ src }) {
         src={src}
         alt="Student review"
         loading="lazy"
-        style={{ display: 'block', width: '100%', height: 'auto' }}
+        style={{
+          display: 'block',
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: '50% 8%',
+        }}
       />
     </div>
   )
