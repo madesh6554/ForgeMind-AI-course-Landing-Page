@@ -2,12 +2,12 @@ import { useRef } from 'react'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 const images = [
-  '/Review%20Images/ChatGPT%20Image%20May%2018%2C%202026%2C%2005_27_37%20PM%20(1).png',
-  '/Review%20Images/ChatGPT%20Image%20May%2018%2C%202026%2C%2005_27_39%20PM%20(2).png',
-  '/Review%20Images/ChatGPT%20Image%20May%2018%2C%202026%2C%2005_27_43%20PM%20(3).png',
-  '/Review%20Images/ChatGPT%20Image%20May%2018%2C%202026%2C%2005_27_44%20PM%20(4).png',
-  '/Review%20Images/ChatGPT%20Image%20May%2018%2C%202026%2C%2005_27_45%20PM%20(5).png',
-  '/Review%20Images/ChatGPT%20Image%20May%2018%2C%202026%2C%2005_27_46%20PM%20(6).png',
+  '/Review%20Images/review1.png',
+  '/Review%20Images/review2.png',
+  '/Review%20Images/review3.png',
+  '/Review%20Images/review4.png',
+  '/Review%20Images/review5.png',
+  '/Review%20Images/review6.png',
 ]
 
 function ReviewCard({ src }) {
