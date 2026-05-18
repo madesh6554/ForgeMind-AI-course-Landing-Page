@@ -1,5 +1,4 @@
 import { useIsMobile } from '../hooks/useIsMobile'
-import MetaBadge from './MetaBadge'
 
 export default function Footer() {
   const isMobile = useIsMobile()
@@ -14,18 +13,24 @@ export default function Footer() {
           flexDirection: isMobile ? 'column' : 'row'
         }}>
           <div>
-            <a href="https://forgemind.in" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-              <img src="/forgemind-logo.gif" alt="ForgeMind AI" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
-              <span style={{ fontSize: 17, fontWeight: 800, color: '#fff', letterSpacing: '-.04em' }}>
-                ForgeMind<span style={{ color: 'var(--red)' }}>AI</span>
-              </span>
-            </a>
+            {/* Brand + Meta Business Partner side-by-side */}
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 16 }}>
+              <a href="https://forgemind.in" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
+                <img src="/forgemind-logo.gif" alt="ForgeMind AI" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
+                <span style={{ fontSize: 17, fontWeight: 800, color: '#fff', letterSpacing: '-.04em' }}>
+                  ForgeMind<span style={{ color: 'var(--red)' }}>AI</span>
+                </span>
+              </a>
+              <div style={{ width: 1, height: 36, background: 'rgba(255,255,255,0.15)', flexShrink: 0 }} />
+              <img
+                src="/logos/mbp-badge-dark.png"
+                alt="Meta Business Partner"
+                style={{ height: 52, width: 'auto', objectFit: 'contain' }}
+              />
+            </div>
             <p style={{ fontSize: 14, color: 'var(--t2)', marginTop: 12, maxWidth: 280, lineHeight: 1.6 }}>
               Meet customers where they are — on WhatsApp. Intelligent automation for modern businesses.
             </p>
-            <div style={{ marginTop: 14 }}>
-              <MetaBadge size="sm" />
-            </div>
           </div>
           <div>
             <h4 style={{ fontSize: 13, fontWeight: 600, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 14 }}>Company</h4>
