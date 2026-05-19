@@ -72,18 +72,20 @@ function PriceCard({ isMobile }) {
       </a>
 
       <div style={{ marginTop: 20 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 16px' }}>
-          {priceDets.slice(0, 4).map((d, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'var(--t2)' }}>
-              <span style={{ color: 'var(--red2)', flexShrink: 0 }}>{d.icon}</span>
-              {d.text}
-            </div>
-          ))}
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'var(--t2)' }}>
+        {[0, 2].map(rowStart => (
+          <div key={rowStart} style={{ display: 'flex', justifyContent: 'space-between', gap: 8, marginBottom: 10 }}>
+            {priceDets.slice(rowStart, rowStart + 2).map((d, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--t2)', flex: 1 }}>
+                <span style={{ color: 'var(--red2)', flexShrink: 0 }}>{d.icon}</span>
+                <span>{d.text}</span>
+              </div>
+            ))}
+          </div>
+        ))}
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--t2)' }}>
             <span style={{ color: 'var(--red2)', flexShrink: 0 }}>{priceDets[4].icon}</span>
-            {priceDets[4].text}
+            <span>{priceDets[4].text}</span>
           </div>
         </div>
       </div>
