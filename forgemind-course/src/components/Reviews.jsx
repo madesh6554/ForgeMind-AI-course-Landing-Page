@@ -32,7 +32,7 @@ function ReviewCard({ src }) {
           width: '100%',
           height: '100%',
           objectFit: 'cover',
-          objectPosition: '50% 35%',
+          objectPosition: '50% 68%',
           pointerEvents: 'none',
         }}
       />
