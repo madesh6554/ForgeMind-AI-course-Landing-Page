@@ -45,9 +45,8 @@ function ReviewCard({ src, dragging }) {
         style={{
           display: 'block',
           width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: '50% 12%',
+          height: 'auto',
+          marginTop: '-60px',
         }}
       />
     </div>
