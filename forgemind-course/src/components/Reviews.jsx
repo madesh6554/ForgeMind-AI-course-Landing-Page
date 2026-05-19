@@ -26,13 +26,13 @@ function ReviewCard({ src }) {
       <img
         src={src}
         alt="Student review"
-        loading="lazy"
         draggable={false}
         style={{
           display: 'block',
           width: '100%',
-          height: 'auto',
-          marginTop: '-60px',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: '50% 35%',
           pointerEvents: 'none',
         }}
       />
