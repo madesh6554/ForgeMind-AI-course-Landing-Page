@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react'
+import { useRef, useEffect } from 'react'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 const images = [
@@ -10,33 +10,19 @@ const images = [
   '/reviews/review6.png',
 ]
 
-function ReviewCard({ src, dragging }) {
+function ReviewCard({ src }) {
   return (
-    <div
-      style={{
-        flexShrink: 0,
-        width: 280,
-        height: 480,
-        borderRadius: 20,
-        overflow: 'hidden',
-        border: '1px solid rgba(255,255,255,0.08)',
-        boxShadow: '0 8px 40px rgba(0,0,0,.5)',
-        background: '#111',
-        transition: dragging ? 'none' : 'transform .25s ease, box-shadow .25s',
-        cursor: dragging ? 'grabbing' : 'grab',
-        userSelect: 'none',
-        pointerEvents: dragging ? 'none' : 'auto',
-      }}
-      onMouseEnter={e => {
-        if (dragging) return
-        e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)'
-        e.currentTarget.style.boxShadow = '0 24px 64px rgba(0,0,0,.7), 0 0 0 1px rgba(37,211,102,.2)'
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.transform = ''
-        e.currentTarget.style.boxShadow = '0 8px 40px rgba(0,0,0,.5)'
-      }}
-    >
+    <div style={{
+      flexShrink: 0,
+      width: 280,
+      height: 480,
+      borderRadius: 20,
+      overflow: 'hidden',
+      border: '1px solid rgba(255,255,255,0.08)',
+      boxShadow: '0 8px 40px rgba(0,0,0,.5)',
+      background: '#111',
+      userSelect: 'none',
+    }}>
       <img
         src={src}
         alt="Student review"
@@ -47,6 +33,7 @@ function ReviewCard({ src, dragging }) {
           width: '100%',
           height: 'auto',
           marginTop: '-60px',
+          pointerEvents: 'none',
         }}
       />
     </div>
@@ -54,6 +41,7 @@ function ReviewCard({ src, dragging }) {
 }
 
 const CARD_GAP = 24
+const SPEED = 0.6
 const track = [...images, ...images]
 
 export default function Reviews() {
@@ -61,68 +49,80 @@ export default function Reviews() {
   const wrapRef = useRef(null)
   const isMobile = useIsMobile()
 
-  const drag = useRef({ active: false, startX: 0, scrollLeft: 0, animOffset: 0 })
-  const draggingRef = useRef(false)
+  const state = useRef({
+    x: 0,
+    loopWidth: 0,
+    paused: false,
+    dragging: false,
+    dragStartX: 0,
+    dragStartPos: 0,
+    rafId: null,
+  })
 
-  const pauseAnim = () => {
+  useEffect(() => {
     const el = trackRef.current
     if (!el) return
-    const matrix = new DOMMatrix(getComputedStyle(el).transform)
-    drag.current.animOffset = matrix.m41
-    el.style.animation = 'none'
-    el.style.transform = `translateX(${drag.current.animOffset}px)`
-  }
 
-  const resumeAnim = () => {
-    const el = trackRef.current
-    if (!el) return
-    el.style.animation = 'marqueeScroll 48s linear infinite'
-    el.style.transform = ''
-    el.style.animationPlayState = 'running'
-  }
+    // loopWidth = width of one set of images (half the total track)
+    const updateLoop = () => {
+      state.current.loopWidth = el.scrollWidth / 2
+    }
+    updateLoop()
 
-  const onMouseDown = useCallback((e) => {
-    draggingRef.current = true
-    pauseAnim()
-    drag.current.active = true
-    drag.current.startX = e.pageX
-    drag.current.scrollLeft = drag.current.animOffset
+    const tick = () => {
+      const s = state.current
+      if (!s.paused && !s.dragging) {
+        s.x -= SPEED
+        if (Math.abs(s.x) >= s.loopWidth) {
+          s.x += s.loopWidth
+        }
+      }
+      el.style.transform = `translateX(${s.x}px)`
+      s.rafId = requestAnimationFrame(tick)
+    }
+
+    state.current.rafId = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(state.current.rafId)
+  }, [])
+
+  // ── Mouse ──
+  const onMouseEnter = () => { state.current.paused = true }
+  const onMouseLeave = () => {
+    state.current.paused = false
+    state.current.dragging = false
+    if (wrapRef.current) wrapRef.current.style.cursor = 'grab'
+  }
+  const onMouseDown = (e) => {
+    state.current.dragging = true
+    state.current.dragStartX = e.pageX
+    state.current.dragStartPos = state.current.x
     if (wrapRef.current) wrapRef.current.style.cursor = 'grabbing'
-  }, [])
+  }
+  const onMouseMove = (e) => {
+    if (!state.current.dragging) return
+    state.current.x = state.current.dragStartPos + (e.pageX - state.current.dragStartX)
+  }
+  const onMouseUp = () => {
+    state.current.dragging = false
+    if (wrapRef.current) wrapRef.current.style.cursor = 'grab'
+  }
 
-  const onMouseMove = useCallback((e) => {
-    if (!drag.current.active) return
-    const delta = e.pageX - drag.current.startX
-    const el = trackRef.current
-    if (el) el.style.transform = `translateX(${drag.current.scrollLeft + delta}px)`
-  }, [])
-
-  const stopDrag = useCallback(() => {
-    if (!drag.current.active) return
-    drag.current.active = false
-    draggingRef.current = false
-    if (wrapRef.current) wrapRef.current.style.cursor = ''
-    resumeAnim()
-  }, [])
-
-  const onTouchStart = useCallback((e) => {
-    pauseAnim()
-    drag.current.active = true
-    drag.current.startX = e.touches[0].pageX
-    drag.current.scrollLeft = drag.current.animOffset
-  }, [])
-
-  const onTouchMove = useCallback((e) => {
-    if (!drag.current.active) return
-    const delta = e.touches[0].pageX - drag.current.startX
-    const el = trackRef.current
-    if (el) el.style.transform = `translateX(${drag.current.scrollLeft + delta}px)`
-  }, [])
-
-  const onTouchEnd = useCallback(() => {
-    drag.current.active = false
-    resumeAnim()
-  }, [])
+  // ── Touch ──
+  const onTouchStart = (e) => {
+    state.current.dragging = true
+    state.current.paused = true
+    state.current.dragStartX = e.touches[0].pageX
+    state.current.dragStartPos = state.current.x
+  }
+  const onTouchMove = (e) => {
+    if (!state.current.dragging) return
+    e.preventDefault()
+    state.current.x = state.current.dragStartPos + (e.touches[0].pageX - state.current.dragStartX)
+  }
+  const onTouchEnd = () => {
+    state.current.dragging = false
+    state.current.paused = false  // resume from current position — no jump
+  }
 
   return (
     <section className="rv" style={{ borderBottom: '1px solid var(--bdr)', padding: isMobile ? '52px 0' : '88px 0', overflow: 'hidden' }}>
@@ -137,16 +137,17 @@ export default function Reviews() {
       <div
         ref={wrapRef}
         style={{
-          marginTop: 40, overflow: 'hidden',
+          marginTop: 40,
+          overflow: 'hidden',
+          cursor: 'grab',
           WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
           maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
-          cursor: 'grab',
         }}
-        onMouseEnter={() => { if (trackRef.current && !drag.current.active) trackRef.current.style.animationPlayState = 'paused' }}
-        onMouseLeave={(e) => { stopDrag(e); if (trackRef.current && !drag.current.active) trackRef.current.style.animationPlayState = 'running' }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
-        onMouseUp={(e) => { stopDrag(e); if (trackRef.current) trackRef.current.style.animationPlayState = 'paused' }}
+        onMouseUp={onMouseUp}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
@@ -154,16 +155,16 @@ export default function Reviews() {
         <div
           ref={trackRef}
           style={{
-            display: 'flex', alignItems: 'center',
+            display: 'flex',
+            alignItems: 'center',
             width: 'max-content',
-            animation: 'marqueeScroll 48s linear infinite',
-            willChange: 'transform',
             gap: CARD_GAP,
             padding: '12px 0',
+            willChange: 'transform',
           }}
         >
           {track.map((src, i) => (
-            <ReviewCard key={i} src={src} dragging={false} />
+            <ReviewCard key={i} src={src} />
           ))}
         </div>
       </div>
