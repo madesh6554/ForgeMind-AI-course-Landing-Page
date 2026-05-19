@@ -62,7 +62,7 @@ export default function StickyEnrollCard() {
 
       {/* CTA */}
       <a
-        href="https://wa.me/919342245724?text=Hi!%20I%20want%20to%20buy%20the%20N8N%20%2B%20WhatsApp%20Combo%20Course%20%E2%82%B94%2C999"
+        href="https://forgemindai.graphy.com/courses/Combo-n8n-starter-course--whatsapp-business-automation-n8n-696e06e50559a26dfa6257bb"
         target="_blank" rel="noopener noreferrer"
         style={{
           display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,

@@ -54,7 +54,7 @@ function PriceCard({ isMobile }) {
       </div>
       <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 22 }}>Use code FORGE26 for extra ₹150 off</div>
 
-      <a href="https://wa.me/919342245724?text=Hi!%20I%20want%20to%20buy%20the%20N8N%20%2B%20WhatsApp%20Combo%20Course%20%E2%82%B94%2C999" target="_blank" rel="noopener noreferrer" style={{
+      <a href="https://forgemindai.graphy.com/courses/Combo-n8n-starter-course--whatsapp-business-automation-n8n-696e06e50559a26dfa6257bb" target="_blank" rel="noopener noreferrer" style={{
         width: '100%', padding: isMobile ? 14 : 16, background: 'var(--red)', color: '#fff', border: 'none',
         borderRadius: 12, fontFamily: 'inherit', fontSize: isMobile ? 15 : 17, fontWeight: 600,
         cursor: 'pointer', transition: '.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,

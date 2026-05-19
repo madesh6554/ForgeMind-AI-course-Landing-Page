@@ -246,7 +246,7 @@ function HeroCTAs({ isMobile }) {
       gap: 12, flexWrap: 'wrap', marginBottom: 20,
       flexDirection: isMobile ? 'column' : 'row'
     }}>
-      <a href="https://wa.me/919342245724?text=Hi!%20I%20want%20to%20enroll%20in%20the%20N8N%20%2B%20WhatsApp%20Combo%20Course%20%E2%82%B94%2C999" target="_blank" rel="noopener noreferrer" className="btn-p" style={{
+      <a href="https://forgemindai.graphy.com/courses/Combo-n8n-starter-course--whatsapp-business-automation-n8n-696e06e50559a26dfa6257bb" target="_blank" rel="noopener noreferrer" className="btn-p" style={{
         width: isMobile ? '100%' : 'auto', justifyContent: 'center',
         fontSize: isMobile ? 15 : 16
       }}>Enroll Now — ₹4,999 →</a>
