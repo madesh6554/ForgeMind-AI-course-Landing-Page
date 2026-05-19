@@ -10,37 +10,37 @@ const nodes = [
   {
     label: 'Dashboard Creation',
     color: 'rgba(37,211,102,.08)', border: 'rgba(37,211,102,.3)', iconColor: 'var(--wa)',
-    left: 435, top: 166,
+    left: 417, top: 139,
     icon: <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>,
   },
   {
     label: 'Pre-built Templates',
     color: 'rgba(139,92,246,.08)', border: 'rgba(139,92,246,.3)', iconColor: '#a78bfa',
-    left: 435, top: 386,
+    left: 459, top: 325,
     icon: <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>,
   },
   {
     label: 'Lifetime Access',
     color: 'rgba(229,9,20,.08)', border: 'rgba(229,9,20,.3)', iconColor: 'var(--red2)',
-    left: 245, top: 496,
+    left: 340, top: 474,
     icon: <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
   },
   {
     label: 'Quizzes & Assessments',
     color: 'rgba(250,204,21,.08)', border: 'rgba(250,204,21,.3)', iconColor: '#facc15',
-    left: 54, top: 386,
+    left: 149, top: 474,
     icon: <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>,
   },
   {
     label: 'Certificate of Completion',
     color: 'rgba(229,9,20,.08)', border: 'rgba(229,9,20,.3)', iconColor: 'var(--red2)',
-    left: 54, top: 166,
+    left: 30, top: 325,
     icon: <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>,
   },
   {
     label: 'Community Access',
     color: 'rgba(139,92,246,.08)', border: 'rgba(139,92,246,.3)', iconColor: '#a78bfa',
-    left: 135, top: 90,
+    left: 73, top: 139,
     icon: <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>,
   },
 ]
@@ -83,20 +83,20 @@ export default function WhatYouGet() {
               <circle cx="300" cy="300" r="240" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="2 8" opacity=".5"/>
               <circle cx="300" cy="300" r="220" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="4 6"/>
               <circle cx="300" cy="300" r="78" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
-              <line x1="300" y1="222" x2="300" y2="80" stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
-              <line x1="367.55" y1="261" x2="490.53" y2="190" stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
-              <line x1="367.55" y1="339" x2="490.53" y2="410" stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
-              <line x1="300" y1="378" x2="300" y2="520" stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
-              <line x1="232.45" y1="339" x2="109.47" y2="410" stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
-              <line x1="232.45" y1="261" x2="109.47" y2="190" stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
-              <circle cx="300" cy="80" r="3" fill="var(--red)" opacity=".5"/>
-              <circle cx="490.53" cy="190" r="3" fill="var(--wa)" opacity=".5"/>
-              <circle cx="490.53" cy="410" r="3" fill="#a78bfa" opacity=".5"/>
-              <circle cx="300" cy="520" r="3" fill="var(--red)" opacity=".5"/>
-              <circle cx="109.47" cy="410" r="3" fill="#facc15" opacity=".5"/>
-              <circle cx="109.47" cy="190" r="3" fill="var(--red)" opacity=".5"/>
-              <line x1="260" y1="233" x2="190" y2="114" stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
-              <circle cx="190" cy="114" r="3" fill="#a78bfa" opacity=".5"/>
+              <line x1="300" y1="222" x2="300" y2="80"   stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
+              <line x1="361" y1="251" x2="472" y2="163"  stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
+              <line x1="376" y1="317" x2="514" y2="349"  stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
+              <line x1="334" y1="370" x2="395" y2="498"  stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
+              <line x1="266" y1="370" x2="204" y2="498"  stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
+              <line x1="224" y1="317" x2="85"  y2="349"  stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
+              <line x1="239" y1="251" x2="128" y2="163"  stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
+              <circle cx="300" cy="80"  r="3" fill="#facc15"      opacity=".5"/>
+              <circle cx="472" cy="163" r="3" fill="var(--wa)"    opacity=".5"/>
+              <circle cx="514" cy="349" r="3" fill="#a78bfa"      opacity=".5"/>
+              <circle cx="395" cy="498" r="3" fill="var(--red)"   opacity=".5"/>
+              <circle cx="204" cy="498" r="3" fill="#facc15"      opacity=".5"/>
+              <circle cx="85"  cy="349" r="3" fill="var(--red)"   opacity=".5"/>
+              <circle cx="128" cy="163" r="3" fill="#a78bfa"      opacity=".5"/>
             </svg>
 
             {/* Centre logo with pulse rings */}
@@ -111,7 +111,7 @@ export default function WhatYouGet() {
               </div>
             </div>
 
-            {/* 6 nodes */}
+            {/* 7 nodes */}
             {nodes.map((n, i) => (
               <div key={i} style={{ position: 'absolute', left: n.left, top: n.top, width: 110, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, textAlign: 'center', zIndex: 3 }}
                 onMouseEnter={e => { const ic = e.currentTarget.querySelector('[data-wni]'); if (ic) ic.style.transform = 'scale(1.15)' }}
