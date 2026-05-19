@@ -25,7 +25,7 @@ export default function Pricing() {
           <div className="shc">
             <div className="slbl">Pricing</div>
             <div className="stl">One combo. Lifetime access.</div>
-            <div className="sdsc">Get both courses at a bundled price — save ₹800.</div>
+            <div className="sdsc">Get both courses at a bundled price — save ₹999.</div>
           </div>
           <PriceCard isMobile={isMobile} />
           <IndividualCards isMobile={isMobile} />
