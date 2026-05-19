@@ -80,7 +80,7 @@ export default function MobileEnrollBar() {
             fontSize: 22, fontWeight: 800, color: '#fff',
             fontFamily: "'JetBrains Mono', monospace", letterSpacing: -0.5,
           }}>₹4,999</span>
-          <span style={{ fontSize: 13, color: 'var(--t3)', textDecoration: 'line-through' }}>₹7,999</span>
+          <span style={{ fontSize: 13, color: 'var(--t3)', textDecoration: 'line-through' }}>₹6,999</span>
         </div>
       </div>
 
