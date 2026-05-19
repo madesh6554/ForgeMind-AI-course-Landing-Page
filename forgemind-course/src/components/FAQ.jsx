@@ -5,7 +5,7 @@ const faqs = [
   { q: 'What about the WhatsApp API — is it the real production API?', a: <>Yes! The course covers everything end-to-end — how to get your Meta test number to start learning, and how to set up your own WhatsApp Cloud API with your real business number for live production use. You'll walk away knowing exactly how to connect your own number and run automations for your actual business.</> },
   { q: 'Is the course in Tamil or English?', a: 'Tamil with English technical terminology — making it accessible for Tamil speakers while keeping you aligned with industry-standard language.' },
   { q: 'How long will I have access?', a: 'Lifetime access. Once you enroll, all modules, updates, and community resources are yours forever. 100% pre-recorded — watch and rewatch whenever you want.' },
-  { q: 'Can I buy the courses separately?', a: 'Yes, but the combo saves you ₹800. Both courses complement each other — n8n gives you the foundation, WhatsApp automation gives you the business application.' },
+  { q: 'Can I buy the courses separately?', a: 'Yes, but the combo saves you ₹999. Both courses complement each other — n8n gives you the foundation, WhatsApp automation gives you the business application.' },
 ]
 
 function FAQItem({ faq }) {
