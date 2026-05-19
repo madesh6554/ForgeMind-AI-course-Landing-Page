@@ -37,6 +37,12 @@ const nodes = [
     left: 54, top: 166,
     icon: <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>,
   },
+  {
+    label: 'Community Access',
+    color: 'rgba(139,92,246,.08)', border: 'rgba(139,92,246,.3)', iconColor: '#a78bfa',
+    left: 135, top: 90,
+    icon: <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>,
+  },
 ]
 
 export default function WhatYouGet() {
@@ -89,6 +95,8 @@ export default function WhatYouGet() {
               <circle cx="300" cy="520" r="3" fill="var(--red)" opacity=".5"/>
               <circle cx="109.47" cy="410" r="3" fill="#facc15" opacity=".5"/>
               <circle cx="109.47" cy="190" r="3" fill="var(--red)" opacity=".5"/>
+              <line x1="260" y1="233" x2="190" y2="114" stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>
+              <circle cx="190" cy="114" r="3" fill="#a78bfa" opacity=".5"/>
             </svg>
 
             {/* Centre logo with pulse rings */}
