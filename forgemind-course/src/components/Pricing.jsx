@@ -71,13 +71,21 @@ function PriceCard({ isMobile }) {
         </svg>
       </a>
 
-      <div style={{ marginTop: 20, textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {priceDets.map((d, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 14, color: 'var(--t2)' }}>
-            <span style={{ color: 'var(--red2)', flexShrink: 0 }}>{d.icon}</span>
-            {d.text}
+      <div style={{ marginTop: 20 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 16px' }}>
+          {priceDets.slice(0, 4).map((d, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'var(--t2)' }}>
+              <span style={{ color: 'var(--red2)', flexShrink: 0 }}>{d.icon}</span>
+              {d.text}
+            </div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'var(--t2)' }}>
+            <span style={{ color: 'var(--red2)', flexShrink: 0 }}>{priceDets[4].icon}</span>
+            {priceDets[4].text}
           </div>
-        ))}
+        </div>
       </div>
       <div style={{ marginTop: 18, fontSize: 12, color: 'var(--t3)', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
         <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
