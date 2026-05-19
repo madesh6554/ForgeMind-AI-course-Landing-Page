@@ -2,7 +2,7 @@ import { useIsMobile } from '../hooks/useIsMobile'
 
 const nodes = [
   {
-    label: 'Live Q&A Sessions',
+    label: '5 Live Q&A Sessions (Attend Anytime)',
     color: 'rgba(250,204,21,.08)', border: 'rgba(250,204,21,.3)', iconColor: '#facc15',
     left: 245, top: 56,
     icon: <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>,
