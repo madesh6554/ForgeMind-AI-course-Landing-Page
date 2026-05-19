@@ -79,6 +79,7 @@ export default function Reviews() {
     if (!el) return
     el.style.animation = 'marqueeScroll 48s linear infinite'
     el.style.transform = ''
+    el.style.animationPlayState = 'running'
   }
 
   const onMouseDown = useCallback((e) => {
@@ -142,10 +143,11 @@ export default function Reviews() {
           maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
           cursor: 'grab',
         }}
+        onMouseEnter={() => { if (trackRef.current && !drag.current.active) trackRef.current.style.animationPlayState = 'paused' }}
+        onMouseLeave={(e) => { stopDrag(e); if (trackRef.current && !drag.current.active) trackRef.current.style.animationPlayState = 'running' }}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
-        onMouseUp={stopDrag}
-        onMouseLeave={stopDrag}
+        onMouseUp={(e) => { stopDrag(e); if (trackRef.current) trackRef.current.style.animationPlayState = 'paused' }}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
