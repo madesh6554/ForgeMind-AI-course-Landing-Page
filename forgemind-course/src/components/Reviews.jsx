@@ -31,7 +31,7 @@ function ReviewCard({ src }) {
           display: 'block',
           width: '100%',
           height: 'auto',
-          marginTop: '-48px',
+          marginTop: '-30px',
           pointerEvents: 'none',
         }}
       />
