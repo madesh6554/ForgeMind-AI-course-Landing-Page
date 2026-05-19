@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useCallback } from 'react'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 const images = [
@@ -10,7 +10,7 @@ const images = [
   '/reviews/review6.png',
 ]
 
-function ReviewCard({ src }) {
+function ReviewCard({ src, dragging }) {
   return (
     <div
       style={{
@@ -22,10 +22,13 @@ function ReviewCard({ src }) {
         border: '1px solid rgba(255,255,255,0.08)',
         boxShadow: '0 8px 40px rgba(0,0,0,.5)',
         background: '#111',
-        transition: 'transform .25s ease, box-shadow .25s',
-        cursor: 'default',
+        transition: dragging ? 'none' : 'transform .25s ease, box-shadow .25s',
+        cursor: dragging ? 'grabbing' : 'grab',
+        userSelect: 'none',
+        pointerEvents: dragging ? 'none' : 'auto',
       }}
       onMouseEnter={e => {
+        if (dragging) return
         e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)'
         e.currentTarget.style.boxShadow = '0 24px 64px rgba(0,0,0,.7), 0 0 0 1px rgba(37,211,102,.2)'
       }}
@@ -38,6 +41,7 @@ function ReviewCard({ src }) {
         src={src}
         alt="Student review"
         loading="lazy"
+        draggable={false}
         style={{
           display: 'block',
           width: '100%',
@@ -55,7 +59,70 @@ const track = [...images, ...images]
 
 export default function Reviews() {
   const trackRef = useRef(null)
+  const wrapRef = useRef(null)
   const isMobile = useIsMobile()
+
+  const drag = useRef({ active: false, startX: 0, scrollLeft: 0, animOffset: 0 })
+  const draggingRef = useRef(false)
+
+  const pauseAnim = () => {
+    const el = trackRef.current
+    if (!el) return
+    const matrix = new DOMMatrix(getComputedStyle(el).transform)
+    drag.current.animOffset = matrix.m41
+    el.style.animation = 'none'
+    el.style.transform = `translateX(${drag.current.animOffset}px)`
+  }
+
+  const resumeAnim = () => {
+    const el = trackRef.current
+    if (!el) return
+    el.style.animation = 'marqueeScroll 48s linear infinite'
+    el.style.transform = ''
+  }
+
+  const onMouseDown = useCallback((e) => {
+    draggingRef.current = true
+    pauseAnim()
+    drag.current.active = true
+    drag.current.startX = e.pageX
+    drag.current.scrollLeft = drag.current.animOffset
+    if (wrapRef.current) wrapRef.current.style.cursor = 'grabbing'
+  }, [])
+
+  const onMouseMove = useCallback((e) => {
+    if (!drag.current.active) return
+    const delta = e.pageX - drag.current.startX
+    const el = trackRef.current
+    if (el) el.style.transform = `translateX(${drag.current.scrollLeft + delta}px)`
+  }, [])
+
+  const stopDrag = useCallback(() => {
+    if (!drag.current.active) return
+    drag.current.active = false
+    draggingRef.current = false
+    if (wrapRef.current) wrapRef.current.style.cursor = ''
+    resumeAnim()
+  }, [])
+
+  const onTouchStart = useCallback((e) => {
+    pauseAnim()
+    drag.current.active = true
+    drag.current.startX = e.touches[0].pageX
+    drag.current.scrollLeft = drag.current.animOffset
+  }, [])
+
+  const onTouchMove = useCallback((e) => {
+    if (!drag.current.active) return
+    const delta = e.touches[0].pageX - drag.current.startX
+    const el = trackRef.current
+    if (el) el.style.transform = `translateX(${drag.current.scrollLeft + delta}px)`
+  }, [])
+
+  const onTouchEnd = useCallback(() => {
+    drag.current.active = false
+    resumeAnim()
+  }, [])
 
   return (
     <section className="rv" style={{ borderBottom: '1px solid var(--bdr)', padding: isMobile ? '52px 0' : '88px 0', overflow: 'hidden' }}>
@@ -68,13 +135,20 @@ export default function Reviews() {
       </div>
 
       <div
+        ref={wrapRef}
         style={{
           marginTop: 40, overflow: 'hidden',
           WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
           maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+          cursor: 'grab',
         }}
-        onMouseEnter={() => { if (trackRef.current) trackRef.current.style.animationPlayState = 'paused' }}
-        onMouseLeave={() => { if (trackRef.current) trackRef.current.style.animationPlayState = 'running' }}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={stopDrag}
+        onMouseLeave={stopDrag}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         <div
           ref={trackRef}
@@ -88,7 +162,7 @@ export default function Reviews() {
           }}
         >
           {track.map((src, i) => (
-            <ReviewCard key={i} src={src} />
+            <ReviewCard key={i} src={src} dragging={false} />
           ))}
         </div>
       </div>
