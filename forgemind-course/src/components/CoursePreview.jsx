@@ -9,6 +9,9 @@ const slides = [
   { thumb: '/course-images/thumbs/preview-n8n-workflow.webp', full: '/course-images/preview-n8n-workflow.png',  cap: '05 — n8n Workflow Editor — Metro Bot Build' },
   { thumb: '/course-images/thumbs/preview-whatsapp-api.webp', full: '/course-images/preview-whatsapp-api.png',  cap: '06 — WhatsApp API Setup — Meta Developer Console' },
   { thumb: '/course-images/thumbs/preview-shopify.webp',      full: '/course-images/preview-shopify.png',       cap: '07 — Shopify Integration — E-Commerce Automation' },
+  { thumb: '/course-images/Screenshot%202026-05-20%20104221.png', full: '/course-images/Screenshot%202026-05-20%20104221.png', cap: '08 — WhatsApp Appointment Bot — Automated Booking Workflow' },
+  { thumb: '/course-images/Screenshot%202026-05-20%20105300.png', full: '/course-images/Screenshot%202026-05-20%20105300.png', cap: '09 — Sales Agent Automation — AI-Powered Sales Workflow' },
+  { thumb: '/course-images/Screenshot%202026-05-20%20105341.png', full: '/course-images/Screenshot%202026-05-20%20105341.png', cap: '10 — Bulk WhatsApp Messaging — Send 1000+ Messages' },
 ]
 
 function LightboxPortal({ src, onClose }) {
